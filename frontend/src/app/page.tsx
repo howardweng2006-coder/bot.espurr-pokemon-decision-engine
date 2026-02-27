@@ -1,17 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { getTypes, postTypeEffectiveness, TypeEffectivenessResponse } from "./lib/api";
 
-type TypesResponse = { types: string[] };
-
-type TypeEffectivenessResponse = {
-  moveType: string;
-  defenderTypes: string[];
-  multiplier: number;
-  breakdown: { defenderType: string; multiplier: number }[];
-};
-
-const BACKEND = "http://localhost:8000";
 const DEBOUNCE_MS = 250;
 
 export default function Home() {
@@ -36,10 +27,7 @@ export default function Home() {
       setTypesError(null);
 
       try {
-        const res = await fetch(`${BACKEND}/types`);
-        if (!res.ok) throw new Error(await res.text());
-
-        const data: TypesResponse = await res.json();
+        const data = await getTypes();
 
         const uniq = Array.from(new Set(data.types));
         uniq.sort();
@@ -70,11 +58,8 @@ export default function Home() {
 
   // Auto-calculate on change (debounced)
   useEffect(() => {
-    // Don’t run until types are loaded and selections exist
     if (typesLoading || typesError) return;
     if (!moveType || !def1) return;
-
-    // If defenderTypes is empty, bail (shouldn’t happen due to def1 check)
     if (defenderTypes.length === 0) return;
 
     setLoading(true);
@@ -84,22 +69,9 @@ export default function Home() {
       const myRequestId = ++requestIdRef.current;
 
       try {
-        const res = await fetch(`${BACKEND}/type-effectiveness`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            moveType,
-            defenderTypes,
-          }),
-        });
+        const data = await postTypeEffectiveness({ moveType, defenderTypes });
 
-        if (!res.ok) throw new Error(await res.text());
-
-        const data: TypeEffectivenessResponse = await res.json();
-
-        // Ignore if a newer request already happened
         if (myRequestId !== requestIdRef.current) return;
-
         setResult(data);
       } catch (err) {
         console.error(err);
@@ -139,8 +111,7 @@ export default function Home() {
           <strong>Failed to load /types</strong>
           <pre style={{ whiteSpace: "pre-wrap" }}>{typesError}</pre>
           <p style={{ marginTop: 8 }}>
-            Make sure backend is running on <code>{BACKEND}</code> and <code>GET /types</code> works in{" "}
-            <code>/docs</code>.
+            Make sure backend is running and <code>GET /types</code> works in <code>/docs</code>.
           </p>
         </div>
       </main>
@@ -195,16 +166,13 @@ export default function Home() {
           <button onClick={swapDefenders} disabled={def2 === "None"} style={{ opacity: def2 === "None" ? 0.5 : 1 }}>
             Swap defenders
           </button>
-          <span style={{ opacity: 0.7, fontSize: 12 }}>
-            (Debounced {DEBOUNCE_MS}ms)
-          </span>
+          <span style={{ opacity: 0.7, fontSize: 12 }}>(Debounced {DEBOUNCE_MS}ms)</span>
         </div>
       </div>
 
       {errorText && (
         <div style={{ padding: "0.75rem", border: "1px solid #f99", background: "#fff5f5", marginBottom: "1rem" }}>
-          <strong>Error:</strong>{" "}
-          <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{errorText}</pre>
+          <strong>Error:</strong> <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{errorText}</pre>
         </div>
       )}
 
@@ -214,9 +182,7 @@ export default function Home() {
             <strong>{result.moveType}</strong> → <strong>{result.defenderTypes.join("/")}</strong>
           </div>
 
-          <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 10 }}>
-            {result.multiplier}x
-          </div>
+          <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 10 }}>{result.multiplier}x</div>
 
           <div style={{ marginBottom: 8, fontWeight: 600 }}>Breakdown</div>
           <ul style={{ marginTop: 0 }}>
