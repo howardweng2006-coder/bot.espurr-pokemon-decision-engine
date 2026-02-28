@@ -138,3 +138,36 @@ export function postSuggestMove(payload: SuggestMoveRequest) {
     body: JSON.stringify(payload),
   });
 }
+
+export type SearchListResponse = { results: string[] };
+
+export type PokemonDetailResponse = {
+  name: string;
+  types: string[];
+  base: { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
+};
+
+export type MoveDetailResponse = {
+  name: string;
+  type: string;
+  category: "physical" | "special" | "status";
+  power: number;
+};
+
+export function searchPokemon(search: string, limit = 10) {
+  const qs = new URLSearchParams({ search, limit: String(limit) });
+  return http<SearchListResponse>(`/pokemon?${qs.toString()}`, { method: "GET" });
+}
+
+export function getPokemon(name: string) {
+  return http<PokemonDetailResponse>(`/pokemon/${encodeURIComponent(name)}`, { method: "GET" });
+}
+
+export function searchMoves(search: string, limit = 10) {
+  const qs = new URLSearchParams({ search, limit: String(limit) });
+  return http<SearchListResponse>(`/moves?${qs.toString()}`, { method: "GET" });
+}
+
+export function getMove(name: string) {
+  return http<MoveDetailResponse>(`/moves/${encodeURIComponent(name)}`, { method: "GET" });
+}

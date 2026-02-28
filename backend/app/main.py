@@ -6,6 +6,21 @@ from app.schemas.damage_preview import DamagePreviewRequest, DamagePreviewRespon
 from app.services.damage_preview import estimate_damage
 from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
 from app.services.suggest_move import suggest_move
+from fastapi import Query
+from app.services.data_loader import (
+    load_pokemon_data,
+    load_moves_data,
+    resolve_pokemon_name,
+    resolve_move_name,
+    search_keys,
+    get_pokemon_index,
+    get_moves_index,
+)
+from app.schemas.data_endpoints import (
+    SearchListResponse,
+    PokemonDetailResponse,
+    MoveDetailResponse,
+)
 
 app = FastAPI(title="Pokemon Decision Engine API")
 
@@ -91,4 +106,48 @@ def suggest_move_endpoint(payload: SuggestMoveRequest):
         "confidence": conf,
         "rankedMoves": ranked,
         "explanation": explanation,
+    }
+
+# pokemon and moves endpoints
+@app.get("/pokemon", response_model=SearchListResponse)
+def search_pokemon(search: str = Query(default="", min_length=1), limit: int = 10):
+    index = get_pokemon_index()
+    results = search_keys(index, search, limit=limit)
+    return {"results": results}
+
+
+@app.get("/pokemon/{name}", response_model=PokemonDetailResponse)
+def get_pokemon(name: str):
+    data = load_pokemon_data()
+    canonical = resolve_pokemon_name(name)
+    if not canonical:
+        raise HTTPException(status_code=404, detail=f"Unknown Pokémon: {name}")
+
+    entry = data[canonical]
+    return {
+        "name": canonical,
+        "types": entry["types"],
+        "base": entry["base"],
+    }
+
+@app.get("/moves", response_model=SearchListResponse)
+def search_moves(search: str = Query(default="", min_length=1), limit: int = 10):
+    index = get_moves_index()
+    results = search_keys(index, search, limit=limit)
+    return {"results": results}
+
+
+@app.get("/moves/{name}", response_model=MoveDetailResponse)
+def get_move(name: str):
+    data = load_moves_data()
+    canonical = resolve_move_name(name)
+    if not canonical:
+        raise HTTPException(status_code=404, detail=f"Unknown move: {name}")
+
+    entry = data[canonical]
+    return {
+        "name": canonical,
+        "type": entry["type"],
+        "category": entry["category"],
+        "power": int(entry.get("power", 0) or 0),
     }

@@ -1,0 +1,91 @@
+{
+  "Earthquake": { "type": "Ground", "category": "physical", "power": 100 },
+  "Headlong Rush": { "type": "Ground", "category": "physical", "power": 120 },
+  "Stomping Tantrum": { "type": "Ground", "category": "physical", "power": 75 },
+  "Ice Spinner": { "type": "Ice", "category": "physical", "power": 80 },
+  "Icicle Crash": { "type": "Ice", "category": "physical", "power": 85 },
+  "Ice Beam": { "type": "Ice", "category": "special", "power": 90 },
+  "Blizzard": { "type": "Ice", "category": "special", "power": 110 },
+
+  "Flamethrower": { "type": "Fire", "category": "special", "power": 90 },
+  "Fire Blast": { "type": "Fire", "category": "special", "power": 110 },
+  "Overheat": { "type": "Fire", "category": "special", "power": 130 },
+  "Heat Wave": { "type": "Fire", "category": "special", "power": 95 },
+  "Flare Blitz": { "type": "Fire", "category": "physical", "power": 120 },
+
+  "Hydro Pump": { "type": "Water", "category": "special", "power": 110 },
+  "Surf": { "type": "Water", "category": "special", "power": 90 },
+  "Scald": { "type": "Water", "category": "special", "power": 80 },
+  "Waterfall": { "type": "Water", "category": "physical", "power": 80 },
+  "Aqua Jet": { "type": "Water", "category": "physical", "power": 40 },
+
+  "Thunderbolt": { "type": "Electric", "category": "special", "power": 90 },
+  "Volt Switch": { "type": "Electric", "category": "special", "power": 70 },
+  "Thunder": { "type": "Electric", "category": "special", "power": 110 },
+  "Wild Charge": { "type": "Electric", "category": "physical", "power": 90 },
+
+  "Leaf Blade": { "type": "Grass", "category": "physical", "power": 90 },
+  "Power Whip": { "type": "Grass", "category": "physical", "power": 120 },
+  "Wood Hammer": { "type": "Grass", "category": "physical", "power": 120 },
+  "Giga Drain": { "type": "Grass", "category": "special", "power": 75 },
+  "Energy Ball": { "type": "Grass", "category": "special", "power": 90 },
+
+  "Close Combat": { "type": "Fighting", "category": "physical", "power": 120 },
+  "Drain Punch": { "type": "Fighting", "category": "physical", "power": 75 },
+  "Mach Punch": { "type": "Fighting", "category": "physical", "power": 40 },
+  "Focus Blast": { "type": "Fighting", "category": "special", "power": 120 },
+
+  "Poison Jab": { "type": "Poison", "category": "physical", "power": 80 },
+  "Sludge Bomb": { "type": "Poison", "category": "special", "power": 90 },
+  "Sludge Wave": { "type": "Poison", "category": "special", "power": 95 },
+
+  "Shadow Ball": { "type": "Ghost", "category": "special", "power": 80 },
+  "Shadow Claw": { "type": "Ghost", "category": "physical", "power": 70 },
+  "Poltergeist": { "type": "Ghost", "category": "physical", "power": 110 },
+
+  "Dragon Darts": { "type": "Dragon", "category": "physical", "power": 50 },
+  "Draco Meteor": { "type": "Dragon", "category": "special", "power": 130 },
+  "Dragon Claw": { "type": "Dragon", "category": "physical", "power": 80 },
+  "Outrage": { "type": "Dragon", "category": "physical", "power": 120 },
+
+  "Play Rough": { "type": "Fairy", "category": "physical", "power": 90 },
+  "Moonblast": { "type": "Fairy", "category": "special", "power": 95 },
+
+  "Iron Head": { "type": "Steel", "category": "physical", "power": 80 },
+  "Heavy Slam": { "type": "Steel", "category": "physical", "power": 100 },
+  "Make It Rain": { "type": "Steel", "category": "special", "power": 120 },
+
+  "Knock Off": { "type": "Dark", "category": "physical", "power": 65 },
+  "Sucker Punch": { "type": "Dark", "category": "physical", "power": 70 },
+  "Dark Pulse": { "type": "Dark", "category": "special", "power": 80 },
+
+  "U-turn": { "type": "Bug", "category": "physical", "power": 70 },
+  "First Impression": { "type": "Bug", "category": "physical", "power": 90 },
+
+  "Stone Edge": { "type": "Rock", "category": "physical", "power": 100 },
+  "Rock Slide": { "type": "Rock", "category": "physical", "power": 75 },
+
+  "Psychic": { "type": "Psychic", "category": "special", "power": 90 },
+  "Psyshock": { "type": "Psychic", "category": "special", "power": 80 },
+
+  "Tera Blast": { "type": "Normal", "category": "special", "power": 80 },
+  "Extreme Speed": { "type": "Normal", "category": "physical", "power": 80 },
+  "Body Slam": { "type": "Normal", "category": "physical", "power": 85 },
+
+  "Roost": { "type": "Flying", "category": "status", "power": 0 },
+  "Defog": { "type": "Flying", "category": "status", "power": 0 },
+  "Recover": { "type": "Normal", "category": "status", "power": 0 },
+  "Protect": { "type": "Normal", "category": "status", "power": 0 },
+
+  "Swords Dance": { "type": "Normal", "category": "status", "power": 0 },
+  "Nasty Plot": { "type": "Dark", "category": "status", "power": 0 },
+  "Dragon Dance": { "type": "Dragon", "category": "status", "power": 0 },
+
+  "Stealth Rock": { "type": "Rock", "category": "status", "power": 0 },
+  "Spikes": { "type": "Ground", "category": "status", "power": 0 },
+  "Toxic Spikes": { "type": "Poison", "category": "status", "power": 0 },
+
+  "Will-O-Wisp": { "type": "Fire", "category": "status", "power": 0 },
+  "Thunder Wave": { "type": "Electric", "category": "status", "power": 0 },
+  "Toxic": { "type": "Poison", "category": "status", "power": 0 }
+}
