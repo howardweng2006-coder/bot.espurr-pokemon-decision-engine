@@ -4,6 +4,8 @@ from app.schemas.type_effectiveness import TypeEffectivenessRequest, TypeEffecti
 from app.services.type_effectiveness import combined_multiplier
 from app.schemas.damage_preview import DamagePreviewRequest, DamagePreviewResponse
 from app.services.damage_preview import estimate_damage
+from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
+from app.services.suggest_move import suggest_move
 
 app = FastAPI(title="Pokemon Decision Engine API")
 
@@ -70,4 +72,23 @@ def damage_preview(payload: DamagePreviewRequest):
         "estimatedDamage": damage,
         "estimatedDamagePercent": damage_pct,
         "notes": notes,
+    }
+
+# suggest move endpoint
+from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
+from app.services.suggest_move import suggest_move
+
+@app.post("/suggest-move", response_model=SuggestMoveResponse)
+def suggest_move_endpoint(payload: SuggestMoveRequest):
+    best_move, conf, ranked, explanation = suggest_move(
+        attacker=payload.attacker,
+        defender=payload.defender,
+        moves=payload.moves,
+    )
+
+    return {
+        "bestMove": best_move,
+        "confidence": conf,
+        "rankedMoves": ranked,
+        "explanation": explanation,
     }

@@ -50,6 +50,52 @@ export type DamagePreviewResponse = {
   notes: string[];
 };
 
+export type SuggestMoveRequest = {
+  attacker: {
+    types: string[];
+    atk?: number;
+    def_?: number;
+    spa?: number;
+    spd?: number;
+    hp?: number;
+  };
+  defender: {
+    types: string[];
+    atk?: number;
+    def_?: number;
+    spa?: number;
+    spd?: number;
+    hp?: number;
+  };
+  moves: {
+    name?: string;
+    type: string;
+    power?: number | null;
+    category: "physical" | "special" | "status";
+  }[];
+};
+
+export type SuggestMoveRankedMove = {
+  name: string;
+  moveType: string;
+  moveCategory: "physical" | "special" | "status";
+  basePower: number;
+  stab: number;
+  typeMultiplier: number;
+  estimatedDamage: number;
+  estimatedDamagePercent: number;
+  score: number;
+  confidence: number;
+  notes: string[];
+};
+
+export type SuggestMoveResponse = {
+  bestMove: string;
+  confidence: number;
+  rankedMoves: SuggestMoveRankedMove[];
+  explanation: string;
+};
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BACKEND}${path}`, {
     ...init,
@@ -81,6 +127,13 @@ export function postTypeEffectiveness(payload: TypeEffectivenessRequest) {
 
 export function postDamagePreview(payload: DamagePreviewRequest) {
   return http<DamagePreviewResponse>("/damage-preview", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function postSuggestMove(payload: SuggestMoveRequest) {
+  return http<SuggestMoveResponse>("/suggest-move", {
     method: "POST",
     body: JSON.stringify(payload),
   });
