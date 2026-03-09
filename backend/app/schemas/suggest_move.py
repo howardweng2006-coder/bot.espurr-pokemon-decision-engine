@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List
 
 from app.schemas.damage_preview import CombatantInfo, MoveInfo
 
@@ -7,7 +7,7 @@ from app.schemas.damage_preview import CombatantInfo, MoveInfo
 class SuggestMoveRequest(BaseModel):
     attacker: CombatantInfo
     defender: CombatantInfo
-    moves: List[MoveInfo] = Field(min_length=1, max_length=24)  # allow more than 4 for testing
+    moves: List[MoveInfo] = Field(min_length=1, max_length=24)
 
 
 class MoveOption(BaseModel):
@@ -17,8 +17,10 @@ class MoveOption(BaseModel):
     basePower: int
     stab: float
     typeMultiplier: float
-    estimatedDamage: float
-    estimatedDamagePercent: float
+    minDamage: float
+    maxDamage: float
+    minDamagePercent: float
+    maxDamagePercent: float
     score: float
     confidence: float
     notes: List[str]

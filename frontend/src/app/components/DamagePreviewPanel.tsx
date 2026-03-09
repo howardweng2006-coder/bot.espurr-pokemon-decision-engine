@@ -19,6 +19,10 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
   const [defStat, setDefStat] = useState<number>(90);
   const [defHp, setDefHp] = useState<number>(200);
 
+  const [level, setLevel] = useState<number>(50);
+  const [crit, setCrit] = useState<boolean>(false);
+  const [burned, setBurned] = useState<boolean>(false);
+
   const [result, setResult] = useState<DamagePreviewResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
@@ -67,21 +71,27 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
             types: attackerTypes,
             atk: category === "physical" ? atkStat : 100,
             spa: category === "special" ? atkStat : 100,
+            level,
+            burned,
           },
           defender: {
             types: defenderTypes,
             def_: category === "physical" ? defStat : 100,
             spd: category === "special" ? defStat : 100,
             hp: defHp,
+            level,
           },
           move: {
             type: moveType,
             power: movePower,
             category,
+            crit,
+            level,
           },
         };
 
         const data = await postDamagePreview(payload);
+        console.log("damage-preview response", data);
         if (myId !== requestIdRef.current) return;
         setResult(data);
       } catch (err) {
@@ -95,7 +105,7 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
     }, DEBOUNCE_MS);
 
     return () => clearTimeout(timeout);
-  }, [moveType, category, power, attackerTypes, defenderTypes, atkStat, defStat, defHp]);
+  }, [moveType, category, power, attackerTypes, defenderTypes, atkStat, defStat, defHp, level, crit, burned]);
 
   function labelEffect(mult: number) {
     if (mult === 0) return "No effect";
@@ -108,7 +118,8 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
     <section style={{ padding: "1rem", border: "1px solid #ddd", borderRadius: 10 }}>
       <h2 style={{ marginTop: 0 }}>Damage Preview</h2>
       <p style={{ marginTop: 0, opacity: 0.8 }}>
-        Simplified estimate (STAB + type effectiveness + stat ratio) {loading ? "• Calculating…" : ""}
+        Gen-style estimate with level, random damage range, crit, burn, STAB, and type effectiveness{" "}
+        {loading ? "• Calculating…" : ""}
       </p>
 
       <div style={{ display: "grid", gap: "0.75rem", marginBottom: "1rem" }}>
@@ -126,7 +137,7 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
 
           <label>
             <div style={{ fontWeight: 600, marginBottom: 6 }}>Category</div>
-            <select value={category} onChange={(e) => setCategory(e.target.value as any)}>
+            <select value={category} onChange={(e) => setCategory(e.target.value as "physical" | "special" | "status")}>
               <option value="physical">physical</option>
               <option value="special">special</option>
               <option value="status">status</option>
@@ -141,6 +152,38 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
               disabled={category === "status"}
               onChange={(e) => setPower(Number(e.target.value))}
             />
+          </label>
+        </div>
+
+        <div style={{ display: "grid", gap: "0.75rem", gridTemplateColumns: "1fr 1fr 1fr" }}>
+          <label>
+            <div style={{ fontWeight: 600, marginBottom: 6 }}>Level</div>
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={level}
+              onChange={(e) => setLevel(Number(e.target.value))}
+            />
+          </label>
+
+          <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 26 }}>
+            <input
+              type="checkbox"
+              checked={crit}
+              onChange={(e) => setCrit(e.target.checked)}
+            />
+            Critical hit
+          </label>
+
+          <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 26 }}>
+            <input
+              type="checkbox"
+              checked={burned}
+              onChange={(e) => setBurned(e.target.checked)}
+              disabled={category !== "physical"}
+            />
+            Attacker burned
           </label>
         </div>
 
@@ -235,15 +278,23 @@ export default function DamagePreviewPanel({ types }: { types: string[] }) {
       {result && (
         <div style={{ padding: "1rem", border: "1px solid #eee", borderRadius: 8 }}>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "baseline" }}>
-            <div style={{ fontSize: 26, fontWeight: 900 }}>{result.estimatedDamagePercent.toFixed(1)}%</div>
+            <div style={{ fontSize: 26, fontWeight: 900 }}>
+              {result.minDamagePercent.toFixed(1)}% – {result.maxDamagePercent.toFixed(1)}%
+            </div>
             <div style={{ opacity: 0.85 }}>
-              STAB: <strong>{result.stab}x</strong> • Type: <strong>{result.typeMultiplier}x</strong> • Power:{" "}
-              <strong>{result.basePower}</strong> • {result.moveCategory}
+              Damage: <strong>{result.minDamage.toFixed(1)} – {result.maxDamage.toFixed(1)}</strong> • STAB:{" "}
+              <strong>{result.stab}x</strong> • Type: <strong>{result.typeMultiplier}x</strong> • Power:{" "}
+              <strong>{result.basePower}</strong> • Level: <strong>{result.level}</strong> • {result.moveCategory}
             </div>
           </div>
 
           <div style={{ marginTop: 8, opacity: 0.9 }}>
             <strong>{result.moveType}</strong> vs <strong>{defenderTypes.join("/")}</strong> ({labelEffect(result.typeMultiplier)})
+          </div>
+
+          <div style={{ marginTop: 8, opacity: 0.85 }}>
+            Crit: <strong>{result.critApplied ? "Yes" : "No"}</strong> • Burn penalty:{" "}
+            <strong>{result.burnApplied ? "Yes" : "No"}</strong>
           </div>
 
           {result.notes?.length ? (

@@ -72,7 +72,7 @@ def get_types():
 
 @app.post("/damage-preview", response_model=DamagePreviewResponse)
 def damage_preview(payload: DamagePreviewRequest):
-    damage, damage_pct, stab, type_mult, notes = estimate_damage(
+    result = estimate_damage(
         attacker=payload.attacker,
         defender=payload.defender,
         move=payload.move,
@@ -82,11 +82,16 @@ def damage_preview(payload: DamagePreviewRequest):
         "moveType": payload.move.type,
         "moveCategory": payload.move.category,
         "basePower": payload.move.power or 0,
-        "stab": stab,
-        "typeMultiplier": type_mult,
-        "estimatedDamage": damage,
-        "estimatedDamagePercent": damage_pct,
-        "notes": notes,
+        "stab": result["stab"],
+        "typeMultiplier": result["typeMultiplier"],
+        "minDamage": result["minDamage"],
+        "maxDamage": result["maxDamage"],
+        "minDamagePercent": result["minPercent"],
+        "maxDamagePercent": result["maxPercent"],
+        "level": result["level"],
+        "critApplied": result["critApplied"],
+        "burnApplied": result["burnApplied"],
+        "notes": result["notes"],
     }
 
 # suggest move endpoint

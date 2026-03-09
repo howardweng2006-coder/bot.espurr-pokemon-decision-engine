@@ -25,21 +25,11 @@ type MoveRow = {
 };
 
 export default function SuggestMovePanel({ types }: { types: string[] }) {
-  // -------------------------
-  // Pokémon selection
-  // -------------------------
-
   const [attackerName, setAttackerName] = useState("");
   const [defenderName, setDefenderName] = useState("");
 
-  const [attackerData, setAttackerData] =
-    useState<PokemonDetailResponse | null>(null);
-  const [defenderData, setDefenderData] =
-    useState<PokemonDetailResponse | null>(null);
-
-  // -------------------------
-  // Combat stats
-  // -------------------------
+  const [attackerData, setAttackerData] = useState<PokemonDetailResponse | null>(null);
+  const [defenderData, setDefenderData] = useState<PokemonDetailResponse | null>(null);
 
   const [atkType1, setAtkType1] = useState("");
   const [atkType2, setAtkType2] = useState("None");
@@ -50,9 +40,9 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
   const [defStat, setDefStat] = useState(90);
   const [defHp, setDefHp] = useState(200);
 
-  // -------------------------
-  // Moves
-  // -------------------------
+  const [level, setLevel] = useState(50);
+  const [crit, setCrit] = useState(false);
+  const [burned, setBurned] = useState(false);
 
   const [moves, setMoves] = useState<MoveRow[]>([
     { slotLabel: "Move 1", moveName: "", type: "", category: "special", power: 90 },
@@ -66,10 +56,6 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
   const [errorText, setErrorText] = useState<string | null>(null);
 
   const requestIdRef = useRef(0);
-
-  // -------------------------
-  // Helpers
-  // -------------------------
 
   async function onPickAttacker(name: string) {
     const p = await getPokemon(name);
@@ -106,10 +92,6 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
     );
   }
 
-  // -------------------------
-  // Derived
-  // -------------------------
-
   const attackerTypes = useMemo(() => {
     const arr: string[] = [];
     if (atkType1) arr.push(atkType1);
@@ -128,10 +110,6 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
     return moves.filter((m) => m.moveName && m.type);
   }, [moves]);
 
-  // -------------------------
-  // Suggest move effect
-  // -------------------------
-
   useEffect(() => {
     if (!types.length) return;
     if (!attackerTypes.length || !defenderTypes.length) return;
@@ -149,21 +127,23 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
             types: attackerTypes,
             atk: atkStat,
             spa: atkStat,
+            level,
+            burned,
           },
           defender: {
             types: defenderTypes,
             def_: defStat,
             spd: defStat,
             hp: defHp,
+            level,
           },
           moves: validMoves.map((m) => ({
             name: m.moveName.trim(),
             type: m.type,
             category: m.category,
-            power:
-              m.category === "status"
-                ? 0
-                : Math.max(0, Number(m.power) || 0),
+            power: m.category === "status" ? 0 : Math.max(0, Number(m.power) || 0),
+            crit,
+            level,
           })),
         };
 
@@ -173,31 +153,46 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
       } catch (err) {
         if (myId !== requestIdRef.current) return;
         setResult(null);
-        setErrorText(
-          err instanceof Error ? err.message : "Unknown error"
-        );
+        setErrorText(err instanceof Error ? err.message : "Unknown error");
       } finally {
         if (myId === requestIdRef.current) setLoading(false);
       }
     }, DEBOUNCE_MS);
 
     return () => clearTimeout(timeout);
-  }, [types.length, attackerTypes, defenderTypes, atkStat, defStat, defHp, validMoves]);
-
-  // -------------------------
-  // UI
-  // -------------------------
+  }, [types.length, attackerTypes, defenderTypes, atkStat, defStat, defHp, validMoves, level, crit, burned]);
 
   return (
     <section style={{ padding: 16, border: "1px solid #ddd", borderRadius: 10 }}>
       <h2>Suggest Move</h2>
       <p style={{ opacity: 0.8 }}>
-        Ranks your moves using damage preview + simple heuristic{" "}
-        {loading ? "• Thinking…" : ""}
+        Ranks your moves using damage ranges + simple heuristic {loading ? "• Thinking…" : ""}
       </p>
 
-      {/* Attacker & Defender */}
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "1fr 1fr" }}>
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "1fr 1fr 1fr" }}>
+        <label>
+          <div style={{ fontWeight: 600, marginBottom: 6 }}>Level</div>
+          <input
+            type="number"
+            min={1}
+            max={100}
+            value={level}
+            onChange={(e) => setLevel(Number(e.target.value))}
+          />
+        </label>
+
+        <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 28 }}>
+          <input type="checkbox" checked={crit} onChange={(e) => setCrit(e.target.checked)} />
+          Critical hit
+        </label>
+
+        <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 28 }}>
+          <input type="checkbox" checked={burned} onChange={(e) => setBurned(e.target.checked)} />
+          Attacker burned
+        </label>
+      </div>
+
+      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "1fr 1fr", marginTop: 16 }}>
         <div style={{ padding: 12, border: "1px solid #eee", borderRadius: 8 }}>
           <h4>Attacker</h4>
 
@@ -205,9 +200,7 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
             label="Pokémon"
             value={attackerName}
             onChangeValue={setAttackerName}
-            fetchSuggestions={async (q) =>
-              (await searchPokemon(q)).results
-            }
+            fetchSuggestions={async (q) => (await searchPokemon(q)).results}
             onSelect={onPickAttacker}
           />
 
@@ -215,8 +208,14 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
             Types: <strong>{attackerTypes.join("/") || "—"}</strong>
           </div>
 
+          {attackerData ? (
+            <div style={{ marginTop: 6, opacity: 0.8, fontSize: 14 }}>
+              Loaded: Atk {attackerData.base.atk} • SpA {attackerData.base.spa}
+            </div>
+          ) : null}
+
           <label style={{ marginTop: 8, display: "block" }}>
-            Attack stat
+            Attack / Sp. Atk stat
             <input
               type="number"
               value={atkStat}
@@ -232,9 +231,7 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
             label="Pokémon"
             value={defenderName}
             onChangeValue={setDefenderName}
-            fetchSuggestions={async (q) =>
-              (await searchPokemon(q)).results
-            }
+            fetchSuggestions={async (q) => (await searchPokemon(q)).results}
             onSelect={onPickDefender}
           />
 
@@ -242,8 +239,14 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
             Types: <strong>{defenderTypes.join("/") || "—"}</strong>
           </div>
 
+          {defenderData ? (
+            <div style={{ marginTop: 6, opacity: 0.8, fontSize: 14 }}>
+              Loaded: Def {defenderData.base.def} • SpD {defenderData.base.spd} • HP {defenderData.base.hp}
+            </div>
+          ) : null}
+
           <label style={{ marginTop: 8, display: "block" }}>
-            Defense stat
+            Defense / Sp. Def stat
             <input
               type="number"
               value={defStat}
@@ -262,7 +265,6 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
         </div>
       </div>
 
-      {/* Moves */}
       <div style={{ marginTop: 24 }}>
         <h4>Moves</h4>
 
@@ -276,20 +278,15 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
                 value={m.moveName}
                 onChangeValue={(v) =>
                   setMoves((prev) =>
-                    prev.map((row, idx) =>
-                      idx === i ? { ...row, moveName: v } : row
-                    )
+                    prev.map((row, idx) => (idx === i ? { ...row, moveName: v } : row))
                   )
                 }
-                fetchSuggestions={async (q) =>
-                  (await searchMoves(q)).results
-                }
+                fetchSuggestions={async (q) => (await searchMoves(q)).results}
                 onSelect={(v) => onPickMove(i, v)}
               />
 
               <div style={{ marginTop: 8, opacity: 0.85 }}>
-                Type: <strong>{m.type || "—"}</strong> • Category:{" "}
-                <strong>{m.category}</strong> • Power:{" "}
+                Type: <strong>{m.type || "—"}</strong> • Category: <strong>{m.category}</strong> • Power:{" "}
                 <strong>{m.category === "status" ? 0 : m.power}</strong>
               </div>
             </div>
@@ -297,18 +294,47 @@ export default function SuggestMovePanel({ types }: { types: string[] }) {
         </div>
       </div>
 
-      {errorText && (
-        <div style={{ marginTop: 16, color: "red" }}>
-          {errorText}
-        </div>
-      )}
+      {errorText && <div style={{ marginTop: 16, color: "red" }}>{errorText}</div>}
 
       {result && (
         <div style={{ marginTop: 20 }}>
           <h3>
             Best: {result.bestMove} ({Math.round(result.confidence * 100)}%)
           </h3>
+
           <div>{result.explanation}</div>
+
+          <div style={{ marginTop: 14, display: "grid", gap: 10 }}>
+            {result.rankedMoves.map((m) => (
+              <div
+                key={m.name}
+                style={{
+                  padding: 12,
+                  border: "1px solid #eee",
+                  borderRadius: 8,
+                  background: m.name === result.bestMove ? "#f8fbff" : "white",
+                }}
+              >
+                <div style={{ fontWeight: 700 }}>{m.name}</div>
+                <div style={{ marginTop: 4, opacity: 0.9 }}>
+                  {m.minDamagePercent.toFixed(1)}% – {m.maxDamagePercent.toFixed(1)}% • Damage{" "}
+                  {m.minDamage.toFixed(1)} – {m.maxDamage.toFixed(1)}
+                </div>
+                <div style={{ marginTop: 4, opacity: 0.8 }}>
+                  {m.moveType} • {m.moveCategory} • {m.typeMultiplier}x • STAB {m.stab}x • score{" "}
+                  {m.score.toFixed(1)} • confidence {Math.round(m.confidence * 100)}%
+                </div>
+
+                {m.notes?.length ? (
+                  <ul style={{ marginTop: 8, marginBottom: 0 }}>
+                    {m.notes.map((n, idx) => (
+                      <li key={idx}>{n}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </section>
