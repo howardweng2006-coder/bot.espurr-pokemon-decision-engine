@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Literal, Optional
 
 from app.schemas.damage_preview import CombatantInfo, MoveInfo
 
@@ -21,6 +21,22 @@ class MoveOption(BaseModel):
     maxDamage: float
     minDamagePercent: float
     maxDamagePercent: float
+    score: float
+    confidence: float
+    notes: List[str]
+
+
+class ActionOption(BaseModel):
+    actionType: Literal["move", "switch"]
+    name: str
+    moveType: Optional[str] = None
+    moveCategory: Optional[str] = None
+    basePower: Optional[int] = None
+    typeMultiplier: Optional[float] = None
+    minDamage: Optional[float] = None
+    maxDamage: Optional[float] = None
+    minDamagePercent: Optional[float] = None
+    maxDamagePercent: Optional[float] = None
     score: float
     confidence: float
     notes: List[str]

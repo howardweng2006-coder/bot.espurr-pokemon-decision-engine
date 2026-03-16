@@ -1,16 +1,22 @@
 from pydantic import BaseModel
-from typing import Dict, List
+from typing import List, Literal
+
+MoveCategory = Literal["physical", "special", "status"]
+
 
 class SearchListResponse(BaseModel):
     results: List[str]
 
+
 class PokemonDetailResponse(BaseModel):
     name: str
     types: List[str]
-    base: Dict[str, int]
+    base: dict
+
 
 class MoveDetailResponse(BaseModel):
     name: str
     type: str
-    category: str
+    category: MoveCategory
     power: int
+    priority: int = 0

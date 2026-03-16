@@ -4,6 +4,7 @@
   "Stomping Tantrum": { "type": "Ground", "category": "physical", "power": 75 },
   "Ice Spinner": { "type": "Ice", "category": "physical", "power": 80 },
   "Icicle Crash": { "type": "Ice", "category": "physical", "power": 85 },
+  "Ice Shard": { "type": "Ice", "category": "physical", "power": 40, "priority": 1 },
   "Ice Beam": { "type": "Ice", "category": "special", "power": 90 },
   "Blizzard": { "type": "Ice", "category": "special", "power": 110 },
 
@@ -32,7 +33,7 @@
 
   "Close Combat": { "type": "Fighting", "category": "physical", "power": 120 },
   "Drain Punch": { "type": "Fighting", "category": "physical", "power": 75 },
-  "Mach Punch": { "type": "Fighting", "category": "physical", "power": 40 },
+  "Mach Punch": { "type": "Fighting", "category": "physical", "power": 40, "priority": 1 },
   "Focus Blast": { "type": "Fighting", "category": "special", "power": 120 },
 
   "Poison Jab": { "type": "Poison", "category": "physical", "power": 80 },
@@ -69,13 +70,13 @@
   "Psyshock": { "type": "Psychic", "category": "special", "power": 80 },
 
   "Tera Blast": { "type": "Normal", "category": "special", "power": 80 },
-  "Extreme Speed": { "type": "Normal", "category": "physical", "power": 80 },
+  "Extreme Speed": { "type": "Normal", "category": "physical", "power": 80, "priority": 2 },
   "Body Slam": { "type": "Normal", "category": "physical", "power": 85 },
 
   "Roost": { "type": "Flying", "category": "status", "power": 0 },
   "Defog": { "type": "Flying", "category": "status", "power": 0 },
   "Recover": { "type": "Normal", "category": "status", "power": 0 },
-  "Protect": { "type": "Normal", "category": "status", "power": 0 },
+  "Protect": { "type": "Normal", "category": "status", "power": 0, "priority": 4 },
 
   "Swords Dance": { "type": "Normal", "category": "status", "power": 0 },
   "Nasty Plot": { "type": "Dark", "category": "status", "power": 0 },

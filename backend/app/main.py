@@ -1,30 +1,36 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
+import app.services.battle_state_service as battle_state_service_module
+import inspect
 from fastapi.middleware.cors import CORSMiddleware
-from app.schemas.type_effectiveness import TypeEffectivenessRequest, TypeEffectivenessResponse
-from app.services.type_effectiveness import combined_multiplier
+
+from app.adapters.manual_input_adapter import to_domain_battle_state
+from app.schemas.battle_state import BattleStateRequest, EvaluatePositionResponse
 from app.schemas.damage_preview import DamagePreviewRequest, DamagePreviewResponse
-from app.services.damage_preview import estimate_damage
-from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
-from app.services.suggest_move import suggest_move
-from fastapi import Query
-from app.services.data_loader import (
-    load_pokemon_data,
-    load_moves_data,
-    resolve_pokemon_name,
-    resolve_move_name,
-    search_keys,
-    get_pokemon_index,
-    get_moves_index,
-)
 from app.schemas.data_endpoints import (
-    SearchListResponse,
-    PokemonDetailResponse,
     MoveDetailResponse,
+    PokemonDetailResponse,
+    SearchListResponse,
 )
+from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
+from app.schemas.type_effectiveness import (
+    TypeEffectivenessRequest,
+    TypeEffectivenessResponse,
+)
+from app.services.battle_state_service import evaluate_battle_state
+from app.services.damage_preview import estimate_damage
+from app.services.data_loader import (
+    get_moves_index,
+    get_pokemon_index,
+    load_moves_data,
+    load_pokemon_data,
+    resolve_move_name,
+    resolve_pokemon_name,
+    search_keys,
+)
+from app.services.suggest_move import suggest_move
+from app.services.type_effectiveness import combined_multiplier, load_type_chart
 
 app = FastAPI(title="Pokemon Decision Engine API")
-
-# CORS middleware, health and root routes
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,15 +40,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
 
 @app.get("/")
 def root():
     return {"message": "Pokemon Decision Engine API. Go to /docs"}
 
-# type effectiveness endpoint
 
 @app.post("/type-effectiveness", response_model=TypeEffectivenessResponse)
 def type_effectiveness(payload: TypeEffectivenessRequest):
@@ -52,23 +59,16 @@ def type_effectiveness(payload: TypeEffectivenessRequest):
             "moveType": payload.moveType,
             "defenderTypes": payload.defenderTypes,
             "multiplier": mult,
-            "breakdown": breakdown
+            "breakdown": breakdown,
         }
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-# get /types endpoint to keep frontend from duplicating type lists. makes this api layer the
-# source of truth.
-
-from app.services.type_effectiveness import load_type_chart
-
 @app.get("/types")
 def get_types():
     chart = load_type_chart()
-    # Keys are the attacking types; in the standard chart it's all 18 types.
     return {"types": sorted(chart.keys())}
 
-# damage preview endpoint
 
 @app.post("/damage-preview", response_model=DamagePreviewResponse)
 def damage_preview(payload: DamagePreviewRequest):
@@ -94,9 +94,6 @@ def damage_preview(payload: DamagePreviewRequest):
         "notes": result["notes"],
     }
 
-# suggest move endpoint
-from app.schemas.suggest_move import SuggestMoveRequest, SuggestMoveResponse
-from app.services.suggest_move import suggest_move
 
 @app.post("/suggest-move", response_model=SuggestMoveResponse)
 def suggest_move_endpoint(payload: SuggestMoveRequest):
@@ -113,7 +110,24 @@ def suggest_move_endpoint(payload: SuggestMoveRequest):
         "explanation": explanation,
     }
 
-# pokemon and moves endpoints
+
+@app.post("/evaluate-position", response_model=EvaluatePositionResponse)
+def evaluate_position(payload: BattleStateRequest):
+
+    state = to_domain_battle_state(payload)
+
+    best_action, conf, ranked, explanation, assumptions_used = evaluate_battle_state(
+        state=state,
+    )
+
+    return {
+        "bestAction": best_action,
+        "confidence": conf,
+        "rankedActions": ranked,
+        "explanation": explanation,
+        "assumptionsUsed": assumptions_used,
+    }
+
 @app.get("/pokemon", response_model=SearchListResponse)
 def search_pokemon(search: str = Query(default="", min_length=1), limit: int = 10):
     index = get_pokemon_index()
@@ -135,6 +149,7 @@ def get_pokemon(name: str):
         "base": entry["base"],
     }
 
+
 @app.get("/moves", response_model=SearchListResponse)
 def search_moves(search: str = Query(default="", min_length=1), limit: int = 10):
     index = get_moves_index()
@@ -155,4 +170,5 @@ def get_move(name: str):
         "type": entry["type"],
         "category": entry["category"],
         "power": int(entry.get("power", 0) or 0),
+        "priority": int(entry.get("priority", 0) or 0),
     }

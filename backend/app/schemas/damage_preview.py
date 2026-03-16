@@ -15,6 +15,7 @@ class MoveInfo(BaseModel):
     type: PokemonType
     power: Optional[int] = Field(default=None, ge=0)
     category: MoveCategory
+    priority: int = Field(default=0, ge=-7, le=7)
     crit: bool = False
     level: Optional[int] = Field(default=None, ge=1, le=100)
 

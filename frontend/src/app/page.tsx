@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { getTypes } from "./lib/api";
-import TypeEffectivenessPanel from "./components/TypeEffectivenessPanel";
 import DamagePreviewPanel from "./components/DamagePreviewPanel";
+import EvaluatePositionPanel from "./components/EvaluatePositionPanel";
 import SuggestMovePanel from "./components/SuggestMovePanel";
+import TypeEffectivenessPanel from "./components/TypeEffectivenessPanel";
 
 export default function Home() {
   const [types, setTypes] = useState<string[]>([]);
@@ -56,19 +57,23 @@ export default function Home() {
     );
   }
 
-return (
-  <main style={{ padding: "2rem", maxWidth: 860 }}>
-    <h1 style={{ marginTop: 0 }}>Espurr Engine Playground</h1>
+  return (
+    <main style={{ padding: "2rem", maxWidth: 860 }}>
+      <h1 style={{ marginTop: 0 }}>Espurr Engine Playground</h1>
 
-    <TypeEffectivenessPanel types={types} />
+      <EvaluatePositionPanel types={types} />
 
-    <div style={{ height: 24 }} />
+      <div style={{ height: 24 }} />
 
-    <SuggestMovePanel types={types} />
+      <TypeEffectivenessPanel types={types} />
 
-    <div style={{ height: 24 }} />
+      <div style={{ height: 24 }} />
 
-    <DamagePreviewPanel types={types} />
-  </main>
-);
+      <SuggestMovePanel types={types} />
+
+      <div style={{ height: 24 }} />
+
+      <DamagePreviewPanel types={types} />
+    </main>
+  );
 }

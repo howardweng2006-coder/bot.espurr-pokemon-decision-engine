@@ -18,10 +18,13 @@ export type DamagePreviewRequest = {
   attacker: {
     types: string[];
     atk?: number;
-    def_?: number; // note: backend expects def_ unless you added alias="def"
+    def_?: number;
     spa?: number;
     spd?: number;
     hp?: number;
+    level?: number;
+    burned?: boolean;
+    tera_active?: boolean;
   };
   defender: {
     types: string[];
@@ -30,12 +33,18 @@ export type DamagePreviewRequest = {
     spa?: number;
     spd?: number;
     hp?: number;
+    level?: number;
+    burned?: boolean;
+    tera_active?: boolean;
   };
   move: {
     name?: string;
     type: string;
     power?: number | null;
     category: "physical" | "special" | "status";
+    priority?: number;
+    crit?: boolean;
+    level?: number;
   };
 };
 
@@ -45,8 +54,13 @@ export type DamagePreviewResponse = {
   basePower: number;
   stab: number;
   typeMultiplier: number;
-  estimatedDamage: number;
-  estimatedDamagePercent: number;
+  minDamage: number;
+  maxDamage: number;
+  minDamagePercent: number;
+  maxDamagePercent: number;
+  level: number;
+  critApplied: boolean;
+  burnApplied: boolean;
   notes: string[];
 };
 
@@ -58,6 +72,9 @@ export type SuggestMoveRequest = {
     spa?: number;
     spd?: number;
     hp?: number;
+    level?: number;
+    burned?: boolean;
+    tera_active?: boolean;
   };
   defender: {
     types: string[];
@@ -66,12 +83,18 @@ export type SuggestMoveRequest = {
     spa?: number;
     spd?: number;
     hp?: number;
+    level?: number;
+    burned?: boolean;
+    tera_active?: boolean;
   };
   moves: {
     name?: string;
     type: string;
     power?: number | null;
     category: "physical" | "special" | "status";
+    priority?: number;
+    crit?: boolean;
+    level?: number;
   }[];
 };
 
@@ -82,8 +105,10 @@ export type SuggestMoveRankedMove = {
   basePower: number;
   stab: number;
   typeMultiplier: number;
-  estimatedDamage: number;
-  estimatedDamagePercent: number;
+  minDamage: number;
+  maxDamage: number;
+  minDamagePercent: number;
+  maxDamagePercent: number;
   score: number;
   confidence: number;
   notes: string[];
@@ -96,6 +121,116 @@ export type SuggestMoveResponse = {
   explanation: string;
 };
 
+export type BattleStateStatBoosts = {
+  atk: number;
+  def_: number;
+  spa: number;
+  spd: number;
+  spe: number;
+};
+
+export type BattleStateActivePokemon = {
+  species?: string | null;
+  types: string[];
+  atk?: number;
+  def_?: number;
+  spa?: number;
+  spd?: number;
+  spe?: number;
+  hp?: number;
+  level?: number;
+  burned?: boolean;
+  tera_active?: boolean;
+  currentHp?: number | null;
+  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
+  boosts: BattleStateStatBoosts;
+};
+
+export type SwitchCandidateRequest = {
+  species: string;
+  types: string[];
+  atk?: number;
+  def_?: number;
+  spa?: number;
+  spd?: number;
+  spe?: number;
+  hp?: number;
+  currentHp?: number | null;
+  burned?: boolean;
+  tera_active?: boolean;
+  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
+};
+
+export type SideHazardsRequest = {
+  stealthRock: boolean;
+  spikesLayers: number;
+  stickyWeb: boolean;
+  toxicSpikesLayers: number;
+};
+
+export type EvaluatePositionRequest = {
+  attacker: BattleStateActivePokemon;
+  defender: BattleStateActivePokemon;
+  moves: {
+    name?: string;
+    type: string;
+    power?: number | null;
+    category: "physical" | "special" | "status";
+    priority?: number;
+    crit?: boolean;
+    level?: number;
+  }[];
+  availableSwitches: SwitchCandidateRequest[];
+  field: {
+    weather?: "sun" | "rain" | "sand" | "snow" | null;
+    terrain?: "electric" | "grassy" | "misty" | "psychic" | null;
+    attackerSide: SideHazardsRequest;
+    defenderSide: SideHazardsRequest;
+  };
+  generation: number;
+  formatName?: string;
+};
+
+export type EvaluatePositionAction = {
+  actionType: "move" | "switch";
+  name: string;
+  moveType?: string | null;
+  moveCategory?: "physical" | "special" | "status" | null;
+  basePower?: number | null;
+  typeMultiplier?: number | null;
+  minDamage?: number | null;
+  maxDamage?: number | null;
+  minDamagePercent?: number | null;
+  maxDamagePercent?: number | null;
+  score: number;
+  confidence: number;
+  notes: string[];
+};
+
+export type EvaluatePositionResponse = {
+  bestAction: string;
+  confidence: number;
+  rankedActions: EvaluatePositionAction[];
+  explanation: string;
+  assumptionsUsed: string[];
+};
+
+export type SearchListResponse = { results: string[] };
+
+export type PokemonDetailResponse = {
+  name: string;
+  types: string[];
+  base: { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
+};
+
+export type MoveDetailResponse = {
+  name: string;
+  type: string;
+  category: "physical" | "special" | "status";
+  power: number;
+  priority: number;
+};
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BACKEND}${path}`, {
     ...init,
@@ -106,7 +241,6 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!res.ok) {
-    // Try to return useful error text (FastAPI returns JSON sometimes)
     const text = await res.text();
     throw new Error(text || `Request failed: ${res.status}`);
   }
@@ -139,20 +273,12 @@ export function postSuggestMove(payload: SuggestMoveRequest) {
   });
 }
 
-export type SearchListResponse = { results: string[] };
-
-export type PokemonDetailResponse = {
-  name: string;
-  types: string[];
-  base: { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
-};
-
-export type MoveDetailResponse = {
-  name: string;
-  type: string;
-  category: "physical" | "special" | "status";
-  power: number;
-};
+export function postEvaluatePosition(payload: EvaluatePositionRequest) {
+  return http<EvaluatePositionResponse>("/evaluate-position", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
 
 export function searchPokemon(search: string, limit = 10) {
   const qs = new URLSearchParams({ search, limit: String(limit) });
