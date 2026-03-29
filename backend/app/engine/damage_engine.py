@@ -1,5 +1,8 @@
-from typing import List, Tuple
-from app.services.type_effectiveness import combined_multiplier
+from __future__ import annotations
+
+from typing import Any, List, Tuple
+
+from app.engine.type_engine import combined_multiplier
 
 
 def compute_stab(move_type: str, attacker_types: List[str], tera_active: bool = False) -> float:
@@ -8,7 +11,7 @@ def compute_stab(move_type: str, attacker_types: List[str], tera_active: bool = 
     return 2.0 if tera_active else 1.5
 
 
-def _pick_stats(attacker, defender, move_category: str) -> Tuple[float, float]:
+def pick_damage_stats(attacker: Any, defender: Any, move_category: str) -> Tuple[float, float]:
     if move_category == "physical":
         attack_stat = attacker.atk or 100
         defense_stat = defender.def_ or 100
@@ -21,7 +24,7 @@ def _pick_stats(attacker, defender, move_category: str) -> Tuple[float, float]:
     return attack_stat, defense_stat
 
 
-def estimate_damage(attacker, defender, move):
+def estimate_damage(attacker: Any, defender: Any, move: Any) -> dict:
     notes: List[str] = []
 
     move_type = move.type
@@ -33,7 +36,6 @@ def estimate_damage(attacker, defender, move):
     attacker_burned = bool(getattr(attacker, "burned", False))
     tera_active = bool(getattr(attacker, "tera_active", False))
 
-    # Status / non-damaging
     if move_category == "status" or move_power <= 0:
         notes.append("Non-damaging move (status or 0 power).")
         stab = compute_stab(move_type, attacker.types, tera_active=tera_active)
@@ -68,7 +70,7 @@ def estimate_damage(attacker, defender, move):
             "notes": notes,
         }
 
-    attack_stat, defense_stat = _pick_stats(attacker, defender, move_category)
+    attack_stat, defense_stat = pick_damage_stats(attacker, defender, move_category)
 
     base_damage = ((((2 * level) / 5 + 2) * move_power * (attack_stat / defense_stat)) / 50) + 2
 

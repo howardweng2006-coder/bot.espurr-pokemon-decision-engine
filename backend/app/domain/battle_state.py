@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import List, Optional
+from dataclasses import dataclass, field as dc_field
+from typing import Any, List, Optional
 
 
 @dataclass
@@ -14,7 +14,7 @@ class StatBoosts:
 
 
 @dataclass
-class ActivePokemon:
+class PokemonState:
     species: Optional[str]
     types: List[str]
     atk: float = 100
@@ -28,11 +28,12 @@ class ActivePokemon:
     tera_active: bool = False
     current_hp: Optional[float] = None
     status: Optional[str] = None
-    boosts: StatBoosts = field(default_factory=StatBoosts)
+    boosts: StatBoosts = dc_field(default_factory=StatBoosts)
+    revealed_moves: List[str] = dc_field(default_factory=list)
 
 
 @dataclass
-class SideHazards:
+class SideConditions:
     stealth_rock: bool = False
     spikes_layers: int = 0
     sticky_web: bool = False
@@ -40,19 +41,38 @@ class SideHazards:
 
 
 @dataclass
+class SideState:
+    active: PokemonState
+    bench: List[PokemonState] = dc_field(default_factory=list)
+    side_conditions: SideConditions = dc_field(default_factory=SideConditions)
+
+
+@dataclass
 class FieldState:
     weather: Optional[str] = None
     terrain: Optional[str] = None
-    attacker_side: SideHazards = field(default_factory=SideHazards)
-    defender_side: SideHazards = field(default_factory=SideHazards)
+
+
+@dataclass
+class FormatContext:
+    generation: int = 9
+    format_name: str = "manual"
+    ruleset: List[str] = dc_field(default_factory=list)
 
 
 @dataclass
 class BattleState:
-    attacker: ActivePokemon
-    defender: ActivePokemon
-    moves: List[object]
-    available_switches: List[ActivePokemon] = field(default_factory=list)
-    field: FieldState = field(default_factory=FieldState)
-    generation: int = 9
-    format_name: str = "manual"
+    my_side: SideState
+    opponent_side: SideState
+    moves: List[Any] = dc_field(default_factory=list)
+    field: FieldState = dc_field(default_factory=FieldState)
+    format_context: FormatContext = dc_field(default_factory=FormatContext)
+
+    @property
+    def attacker_side_conditions(self) -> SideConditions:
+        return self.my_side.side_conditions
+
+    @property
+    def defender_side_conditions(self) -> SideConditions:
+        return self.opponent_side.side_conditions
+

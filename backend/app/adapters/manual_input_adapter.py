@@ -1,18 +1,28 @@
+from __future__ import annotations
+
 from app.domain.battle_state import (
-    ActivePokemon,
     BattleState,
     FieldState,
-    SideHazards,
+    FormatContext,
+    PokemonState,
+    SideConditions,
+    SideState,
     StatBoosts,
 )
 from app.schemas.battle_state import BattleStateRequest
 
 
-def _to_domain_pokemon(pokemon) -> ActivePokemon:
+def _to_domain_pokemon(pokemon) -> PokemonState:
     status = getattr(pokemon, "status", None)
     burned = bool(getattr(pokemon, "burned", False) or status == "brn")
 
-    return ActivePokemon(
+    current_hp = (
+        float(pokemon.currentHp)
+        if getattr(pokemon, "currentHp", None) is not None
+        else None
+    )
+
+    return PokemonState(
         species=getattr(pokemon, "species", None),
         types=list(pokemon.types),
         atk=float(getattr(pokemon, "atk", 100) or 100),
@@ -24,7 +34,7 @@ def _to_domain_pokemon(pokemon) -> ActivePokemon:
         level=getattr(pokemon, "level", None),
         burned=burned,
         tera_active=bool(getattr(pokemon, "tera_active", False)),
-        current_hp=float(pokemon.currentHp) if getattr(pokemon, "currentHp", None) is not None else None,
+        current_hp=current_hp,
         status=status,
         boosts=StatBoosts(
             atk=getattr(getattr(pokemon, "boosts", None), "atk", 0),
@@ -33,31 +43,35 @@ def _to_domain_pokemon(pokemon) -> ActivePokemon:
             spd=getattr(getattr(pokemon, "boosts", None), "spd", 0),
             spe=getattr(getattr(pokemon, "boosts", None), "spe", 0),
         ),
+        revealed_moves=list(getattr(pokemon, "revealedMoves", []) or []),
+    )
+
+
+def _to_domain_side(side) -> SideState:
+    return SideState(
+        active=_to_domain_pokemon(side.active),
+        bench=[_to_domain_pokemon(pokemon) for pokemon in side.bench],
+        side_conditions=SideConditions(
+            stealth_rock=side.side_conditions.stealth_rock,
+            spikes_layers=side.side_conditions.spikes_layers,
+            sticky_web=side.side_conditions.sticky_web,
+            toxic_spikes_layers=side.side_conditions.toxic_spikes_layers,
+        ),
     )
 
 
 def to_domain_battle_state(payload: BattleStateRequest) -> BattleState:
     return BattleState(
-        attacker=_to_domain_pokemon(payload.attacker),
-        defender=_to_domain_pokemon(payload.defender),
+        my_side=_to_domain_side(payload.my_side),
+        opponent_side=_to_domain_side(payload.opponent_side),
         moves=list(payload.moves),
-        available_switches=[_to_domain_pokemon(p) for p in payload.availableSwitches],
         field=FieldState(
             weather=payload.field.weather,
             terrain=payload.field.terrain,
-            attacker_side=SideHazards(
-                stealth_rock=payload.field.attacker_side.stealth_rock,
-                spikes_layers=payload.field.attacker_side.spikes_layers,
-                sticky_web=payload.field.attacker_side.sticky_web,
-                toxic_spikes_layers=payload.field.attacker_side.toxic_spikes_layers,
-            ),
-            defender_side=SideHazards(
-                stealth_rock=payload.field.defender_side.stealth_rock,
-                spikes_layers=payload.field.defender_side.spikes_layers,
-                sticky_web=payload.field.defender_side.sticky_web,
-                toxic_spikes_layers=payload.field.defender_side.toxic_spikes_layers,
-            ),
         ),
-        generation=payload.generation,
-        format_name=payload.formatName or "manual",
+        format_context=FormatContext(
+            generation=payload.format_context.generation,
+            format_name=payload.format_context.formatName or "manual",
+            ruleset=list(payload.format_context.ruleset),
+        ),
     )

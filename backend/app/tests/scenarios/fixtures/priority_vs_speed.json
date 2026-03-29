@@ -1,0 +1,46 @@
+{
+  "mySide": {
+    "active": {
+      "species": "Scizor",
+      "types": ["Bug", "Steel"],
+      "atk": 130,
+      "spe": 65,
+      "hp": 100,
+      "currentHp": 100
+    },
+    "bench": [],
+    "sideConditions": {}
+  },
+  "opponentSide": {
+    "active": {
+      "species": "Greninja",
+      "types": ["Water", "Dark"],
+      "spe": 122,
+      "hp": 100,
+      "currentHp": 40
+    },
+    "bench": [],
+    "sideConditions": {}
+  },
+  "moves": [
+    {
+      "name": "Bullet Punch",
+      "type": "Steel",
+      "power": 40,
+      "category": "physical",
+      "priority": 1
+    },
+    {
+      "name": "Iron Head",
+      "type": "Steel",
+      "power": 80,
+      "category": "physical",
+      "priority": 0
+    }
+  ],
+  "field": {},
+  "formatContext": {
+    "generation": 9,
+    "formatName": "Gen 9 OU"
+  }
+}

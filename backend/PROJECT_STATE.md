@@ -87,7 +87,7 @@ nature
 These sets will eventually be derived from metagame datasets such as:
 - Smogon usage statistics
 - Smogon sample sets
-- curated priors
+- MunchStats
 
 
 --------------------------------------------------
@@ -125,6 +125,7 @@ Examples:
 - common abilities
 - common move combinations
 
+*eventually allow pokepaste uploads for users to tell the engine upfront what team sets are
 
 --------------------------------------------------
 
