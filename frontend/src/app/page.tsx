@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getTypes } from "./lib/api";
 import DamagePreviewPanel from "./components/DamagePreviewPanel";
 import EvaluatePositionPanel from "./components/EvaluatePositionPanel";
-import SuggestMovePanel from "./components/SuggestMovePanel";
 import TypeEffectivenessPanel from "./components/TypeEffectivenessPanel";
 
 export default function Home() {
@@ -44,7 +43,7 @@ export default function Home() {
 
   if (errorText) {
     return (
-      <main style={{ padding: "2rem", maxWidth: 860 }}>
+      <main style={{ padding: "2rem", maxWidth: 1100 }}>
         <h1>Espurr Engine Playground</h1>
         <div style={{ padding: "0.75rem", border: "1px solid #f99", background: "#fff5f5" }}>
           <strong>Failed to load /types</strong>
@@ -58,22 +57,22 @@ export default function Home() {
   }
 
   return (
-    <main style={{ padding: "2rem", maxWidth: 860 }}>
+    <main style={{ padding: "2rem", maxWidth: 1100 }}>
       <h1 style={{ marginTop: 0 }}>Espurr Engine Playground</h1>
+      <p style={{ opacity: 0.8, marginTop: 0 }}>
+        Evaluate-position is now the main decision-engine surface. Damage preview and type effectiveness remain as
+        supporting utilities.
+      </p>
 
       <EvaluatePositionPanel types={types} />
 
       <div style={{ height: 24 }} />
 
-      <TypeEffectivenessPanel types={types} />
-
-      <div style={{ height: 24 }} />
-
-      <SuggestMovePanel types={types} />
-
-      <div style={{ height: 24 }} />
-
       <DamagePreviewPanel types={types} />
+
+      <div style={{ height: 24 }} />
+
+      <TypeEffectivenessPanel types={types} />
     </main>
   );
 }

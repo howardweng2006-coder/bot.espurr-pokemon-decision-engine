@@ -64,157 +64,6 @@ export type DamagePreviewResponse = {
   notes: string[];
 };
 
-export type SuggestMoveRequest = {
-  attacker: {
-    types: string[];
-    atk?: number;
-    def_?: number;
-    spa?: number;
-    spd?: number;
-    hp?: number;
-    level?: number;
-    burned?: boolean;
-    tera_active?: boolean;
-  };
-  defender: {
-    types: string[];
-    atk?: number;
-    def_?: number;
-    spa?: number;
-    spd?: number;
-    hp?: number;
-    level?: number;
-    burned?: boolean;
-    tera_active?: boolean;
-  };
-  moves: {
-    name?: string;
-    type: string;
-    power?: number | null;
-    category: "physical" | "special" | "status";
-    priority?: number;
-    crit?: boolean;
-    level?: number;
-  }[];
-};
-
-export type SuggestMoveRankedMove = {
-  name: string;
-  moveType: string;
-  moveCategory: "physical" | "special" | "status";
-  basePower: number;
-  stab: number;
-  typeMultiplier: number;
-  minDamage: number;
-  maxDamage: number;
-  minDamagePercent: number;
-  maxDamagePercent: number;
-  score: number;
-  confidence: number;
-  notes: string[];
-};
-
-export type SuggestMoveResponse = {
-  bestMove: string;
-  confidence: number;
-  rankedMoves: SuggestMoveRankedMove[];
-  explanation: string;
-};
-
-export type BattleStateStatBoosts = {
-  atk: number;
-  def_: number;
-  spa: number;
-  spd: number;
-  spe: number;
-};
-
-export type BattleStateActivePokemon = {
-  species?: string | null;
-  types: string[];
-  atk?: number;
-  def_?: number;
-  spa?: number;
-  spd?: number;
-  spe?: number;
-  hp?: number;
-  level?: number;
-  burned?: boolean;
-  tera_active?: boolean;
-  currentHp?: number | null;
-  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
-  boosts: BattleStateStatBoosts;
-};
-
-export type SwitchCandidateRequest = {
-  species: string;
-  types: string[];
-  atk?: number;
-  def_?: number;
-  spa?: number;
-  spd?: number;
-  spe?: number;
-  hp?: number;
-  currentHp?: number | null;
-  burned?: boolean;
-  tera_active?: boolean;
-  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
-};
-
-export type SideHazardsRequest = {
-  stealthRock: boolean;
-  spikesLayers: number;
-  stickyWeb: boolean;
-  toxicSpikesLayers: number;
-};
-
-export type EvaluatePositionRequest = {
-  attacker: BattleStateActivePokemon;
-  defender: BattleStateActivePokemon;
-  moves: {
-    name?: string;
-    type: string;
-    power?: number | null;
-    category: "physical" | "special" | "status";
-    priority?: number;
-    crit?: boolean;
-    level?: number;
-  }[];
-  availableSwitches: SwitchCandidateRequest[];
-  field: {
-    weather?: "sun" | "rain" | "sand" | "snow" | null;
-    terrain?: "electric" | "grassy" | "misty" | "psychic" | null;
-    attackerSide: SideHazardsRequest;
-    defenderSide: SideHazardsRequest;
-  };
-  generation: number;
-  formatName?: string;
-};
-
-export type EvaluatePositionAction = {
-  actionType: "move" | "switch";
-  name: string;
-  moveType?: string | null;
-  moveCategory?: "physical" | "special" | "status" | null;
-  basePower?: number | null;
-  typeMultiplier?: number | null;
-  minDamage?: number | null;
-  maxDamage?: number | null;
-  minDamagePercent?: number | null;
-  maxDamagePercent?: number | null;
-  score: number;
-  confidence: number;
-  notes: string[];
-};
-
-export type EvaluatePositionResponse = {
-  bestAction: string;
-  confidence: number;
-  rankedActions: EvaluatePositionAction[];
-  explanation: string;
-  assumptionsUsed: string[];
-};
-
 export type SearchListResponse = { results: string[] };
 
 export type PokemonDetailResponse = {
@@ -229,6 +78,132 @@ export type MoveDetailResponse = {
   category: "physical" | "special" | "status";
   power: number;
   priority: number;
+};
+
+export type BattleStateStatBoosts = {
+  atk: number;
+  def_: number;
+  spa: number;
+  spd: number;
+  spe: number;
+};
+
+export type SideConditionsRequest = {
+  stealthRock: boolean;
+  spikesLayers: number;
+  stickyWeb: boolean;
+  toxicSpikesLayers: number;
+};
+
+export type PokemonStateRequest = {
+  species?: string | null;
+  types: string[];
+  atk?: number;
+  def_?: number;
+  spa?: number;
+  spd?: number;
+  spe?: number;
+  hp?: number;
+  level?: number | null;
+  burned?: boolean;
+  tera_active?: boolean;
+  currentHp?: number | null;
+  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
+  boosts: BattleStateStatBoosts;
+  revealedMoves: string[];
+};
+
+export type BenchPokemonRequest = {
+  species: string;
+  types: string[];
+  atk?: number;
+  def_?: number;
+  spa?: number;
+  spd?: number;
+  spe?: number;
+  hp?: number;
+  currentHp?: number | null;
+  burned?: boolean;
+  tera_active?: boolean;
+  status?: "brn" | "par" | "psn" | "tox" | "slp" | "frz" | null;
+  revealedMoves: string[];
+};
+
+export type SideStateRequest = {
+  active: PokemonStateRequest;
+  bench: BenchPokemonRequest[];
+  sideConditions: SideConditionsRequest;
+};
+
+export type EvaluatePositionRequest = {
+  mySide: SideStateRequest;
+  opponentSide: SideStateRequest;
+  moves: {
+    name?: string;
+    type: string;
+    power?: number | null;
+    category: "physical" | "special" | "status";
+    priority?: number;
+    crit?: boolean;
+    level?: number;
+  }[];
+  field: {
+    weather?: "sun" | "rain" | "sand" | "snow" | null;
+    terrain?: "electric" | "grassy" | "misty" | "psychic" | null;
+  };
+  formatContext: {
+    generation: number;
+    formatName?: string;
+    ruleset: string[];
+  };
+};
+
+export type ScoreBreakdownResponse = {
+  tactical: number;
+  positional: number;
+  strategic: number;
+  uncertainty: number;
+  total: number;
+};
+
+export type EvaluatePositionAction = {
+  actionType: "move" | "switch";
+  name: string;
+  moveType?: string | null;
+  moveCategory?: "physical" | "special" | "status" | null;
+  basePower?: number | null;
+  typeMultiplier?: number | null;
+  minDamage?: number | null;
+  maxDamage?: number | null;
+  minDamagePercent?: number | null;
+  maxDamagePercent?: number | null;
+
+  score: number;
+  confidence: number;
+  notes: string[];
+
+  expectedScore?: number | null;
+  worstScore?: number | null;
+  bestScore?: number | null;
+  stability?: number | null;
+  topWorldLabel?: string | null;
+  topWorldWeight?: number | null;
+
+  immediateScore: number;
+  continuationScore: number;
+  uncertaintyPenalty: number;
+  dominantReason: "tactical" | "positional" | "strategic" | "uncertainty";
+  continuationDriven: boolean;
+
+  scoreBreakdown: ScoreBreakdownResponse;
+};
+
+export type EvaluatePositionResponse = {
+  bestAction: string;
+  confidence: number;
+  rankedActions: EvaluatePositionAction[];
+  explanation: string;
+  assumptionsUsed: string[];
 };
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
@@ -261,13 +236,6 @@ export function postTypeEffectiveness(payload: TypeEffectivenessRequest) {
 
 export function postDamagePreview(payload: DamagePreviewRequest) {
   return http<DamagePreviewResponse>("/damage-preview", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-}
-
-export function postSuggestMove(payload: SuggestMoveRequest) {
-  return http<SuggestMoveResponse>("/suggest-move", {
     method: "POST",
     body: JSON.stringify(payload),
   });
