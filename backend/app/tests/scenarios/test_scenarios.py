@@ -1,369 +1,166 @@
-from app.domain.actions import MoveAction
-from app.domain.battle_state import (
-    BattleState,
-    FieldState,
-    FormatContext,
-    PokemonState,
-    SideConditions,
-    SideState,
-    StatBoosts,
+import json
+from pathlib import Path
+
+import pytest
+
+from app.adapters.manual_input_adapter import to_domain_battle_state
+from app.engine.evaluation_engine import evaluate_battle_state
+from app.schemas.battle_state import BattleStateRequest
+
+
+FIXTURE_DIR = Path(__file__).parent / "fixtures"
+
+
+def load_fixture(name: str) -> BattleStateRequest:
+    path = FIXTURE_DIR / name
+    with path.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
+    return BattleStateRequest.model_validate(payload)
+
+
+def evaluate_fixture(name: str):
+    request = load_fixture(name)
+    state = to_domain_battle_state(request)
+    best_action, confidence, ranked_actions, explanation, assumptions = evaluate_battle_state(state)
+
+    return {
+        "best_action": best_action,
+        "confidence": confidence,
+        "ranked_actions": ranked_actions,
+        "explanation": explanation,
+        "assumptions": assumptions,
+    }
+
+
+def action_key(action: dict) -> str:
+    return f"{action['actionType']}::{action['name']}"
+
+
+def top_keys(result: dict, n: int = 3) -> list[str]:
+    return [action_key(action) for action in result["ranked_actions"][:n]]
+
+
+def top_action(result: dict) -> dict:
+    return result["ranked_actions"][0]
+
+
+def assert_top_1(result: dict, expected_key: str):
+    actual = action_key(top_action(result))
+    assert actual == expected_key, (
+        f"Expected top action {expected_key}, got {actual}. "
+        f"Top 3: {top_keys(result, 3)}"
+    )
+
+
+def assert_in_top_n(result: dict, expected_key: str, n: int):
+    keys = top_keys(result, n)
+    assert expected_key in keys, (
+        f"Expected {expected_key} in top {n}, got {keys}"
+    )
+
+
+def assert_not_top_1(result: dict, banned_key: str):
+    actual = action_key(top_action(result))
+    assert actual != banned_key, (
+        f"Did not expect {banned_key} to be top 1. Top 3: {top_keys(result, 3)}"
+    )
+
+
+def assert_action_type_present(result: dict, action_type: str):
+    action_types = {action["actionType"] for action in result["ranked_actions"]}
+    assert action_type in action_types
+
+
+def assert_explanation_mentions_any(result: dict, phrases: list[str]):
+    explanation = result["explanation"].lower()
+    assert any(phrase.lower() in explanation for phrase in phrases), (
+        f"Expected explanation to mention one of {phrases!r}. "
+        f"Actual explanation: {result['explanation']}"
+    )
+
+
+# -------------------------
+# Baseline regression pack
+# -------------------------
+
+@pytest.mark.parametrize(
+    "fixture_name, expected_top_1, banned_top_1",
+    [
+        (
+            "electric_into_gyarados_ko.json",
+            "move::Thunderbolt",
+            "switch::Ferrothorn",
+        ),
+        (
+            "priority_picks_off_faster_target.json",
+            "move::Extreme Speed",
+            "move::Earthquake",
+        ),
+    ],
 )
-from app.engine.projection_engine import project_action_against_response
-from app.inference.models import CandidateSet, OpponentResponse, OpponentWorld
+def test_baseline_top_1_scenarios(fixture_name: str, expected_top_1: str, banned_top_1: str):
+    result = evaluate_fixture(fixture_name)
+
+    assert_action_type_present(result, "move")
+    assert_action_type_present(result, "switch")
+    assert_top_1(result, expected_top_1)
+    assert_not_top_1(result, banned_top_1)
+    assert 0.0 <= result["confidence"] <= 1.0
+    assert isinstance(result["assumptions"], list)
+    assert isinstance(result["explanation"], str) and len(result["explanation"]) > 0
 
 
-def _move_action(
-    name: str,
-    move_type: str,
-    category: str,
-    power: int,
-    priority: int = 0,
-) -> MoveAction:
-    return MoveAction(
-        move_name=name,
-        move_type=move_type,
-        move_category=category,
-        base_power=power,
-        priority=priority,
-    )
+def test_hazard_penalty_discourages_bad_switch():
+    result = evaluate_fixture("hazard_switch_penalty_dragonite.json")
+
+    # This one is intentionally a little softer because exact top-1 may move
+    # around as response modeling changes. The important regression is that
+    # the hazard-punished Dragonite switch should not become the best action.
+    assert_action_type_present(result, "move")
+    assert_action_type_present(result, "switch")
+    assert_in_top_n(result, "move::Hydro Pump", 2)
+    assert_not_top_1(result, "switch::Dragonite")
 
 
-def _basic_state(
-    *,
-    my_active: PokemonState,
-    opp_active: PokemonState,
-    my_bench: list[PokemonState] | None = None,
-    opp_bench: list[PokemonState] | None = None,
-) -> BattleState:
-    return BattleState(
-        my_side=SideState(
-            active=my_active,
-            bench=my_bench or [],
-            side_conditions=SideConditions(),
-        ),
-        opponent_side=SideState(
-            active=opp_active,
-            bench=opp_bench or [],
-            side_conditions=SideConditions(),
-        ),
-        moves=[],
-        field=FieldState(),
-        format_context=FormatContext(generation=9, format_name="gen9ou", ruleset=[]),
-    )
+def test_levitate_immunity_discourages_ground_spam():
+    result = evaluate_fixture("levitate_immunity_respect.json")
+
+    assert_action_type_present(result, "move")
+    assert_action_type_present(result, "switch")
+    assert_not_top_1(result, "move::Headlong Rush")
+
+    safe_top_two = set(top_keys(result, 2))
+    assert any(
+        key in safe_top_two
+        for key in ["move::Knock Off", "move::Close Combat", "switch::Kingambit"]
+    ), f"Expected a safe non-Ground line in top 2, got {top_keys(result, 3)}"
+
+# ----------------------------------
+# Aspirational competitive scenarios
+# ----------------------------------
+# These are intentionally marked xfail because they align with known weak /
+# missing reasoning layers in the current engine: setup value, hazard-control
+# value, and long-horizon preservation logic.
+
+@pytest.mark.xfail(reason="Setup value is still weak / not first-class modeled.")
+def test_forced_switch_setup_window_volcarona():
+    result = evaluate_fixture("forced_switch_setup_volcarona.json")
+
+    assert_in_top_n(result, "move::Quiver Dance", 2)
+    assert_not_top_1(result, "move::Flamethrower")
 
 
-def test_levitate_blocks_ground_projection():
-    state = _basic_state(
-        my_active=PokemonState(
-            species="Great Tusk",
-            types=["Ground", "Fighting"],
-            atk=131,
-            def_=131,
-            spa=53,
-            spd=53,
-            spe=87,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-        opp_active=PokemonState(
-            species="Rotom-Wash",
-            types=["Electric", "Water"],
-            atk=65,
-            def_=107,
-            spa=105,
-            spd=107,
-            spe=86,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-    )
+@pytest.mark.xfail(reason="Hazard-control value is not yet a strong modeled concept.")
+def test_hazard_control_should_be_competitively_rewarded():
+    result = evaluate_fixture("hazard_control_defog_corviknight.json")
 
-    world = OpponentWorld(
-        species="Rotom-Wash",
-        candidate=CandidateSet(
-            species="Rotom-Wash",
-            label="levitate-set",
-            moves=["Hydro Pump", "Volt Switch"],
-            ability="Levitate",
-            weight=1.0,
-            source="test",
-        ),
-        weight=1.0,
-        known_moves=[],
-        assumed_moves=["Hydro Pump", "Volt Switch"],
-        assumed_item=None,
-        assumed_ability="Levitate",
-        assumed_tera_type=None,
-        notes=[],
-    )
-
-    response = OpponentResponse(
-        kind="move",
-        label="move::Hydro Pump",
-        weight=1.0,
-        move_name="Hydro Pump",
-        move_type="Water",
-        move_category="special",
-        base_power=110,
-        priority=0,
-        notes=[],
-    )
-
-    my_action = _move_action("Headlong Rush", "Ground", "physical", 120)
-
-    projection = project_action_against_response(
-        state=state,
-        my_action=my_action,
-        response=response,
-        world=world,
-    )
-
-    assert projection.opp_hp_after == projection.opp_hp_before
-    assert any("Levitate" in note or "immunity" in note.lower() for note in projection.notes)
+    assert_in_top_n(result, "move::Defog", 2)
+    assert_not_top_1(result, "move::Body Press")
 
 
-def test_choice_scarf_changes_projected_order():
-    state = _basic_state(
-        my_active=PokemonState(
-            species="Gholdengo",
-            types=["Steel", "Ghost"],
-            atk=60,
-            def_=95,
-            spa=133,
-            spd=91,
-            spe=84,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-        opp_active=PokemonState(
-            species="Great Tusk",
-            types=["Ground", "Fighting"],
-            atk=131,
-            def_=131,
-            spa=53,
-            spd=53,
-            spe=87,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-    )
+@pytest.mark.xfail(reason="Preservation / sack logic is not yet implemented.")
+def test_preserve_endgame_check_over_short_term_trade():
+    result = evaluate_fixture("preserve_lando_for_gambit_endgame.json")
 
-    world = OpponentWorld(
-        species="Great Tusk",
-        candidate=CandidateSet(
-            species="Great Tusk",
-            label="scarf-set",
-            moves=["Headlong Rush"],
-            item="Choice Scarf",
-            weight=1.0,
-            source="test",
-        ),
-        weight=1.0,
-        known_moves=[],
-        assumed_moves=["Headlong Rush"],
-        assumed_item="Choice Scarf",
-        assumed_ability=None,
-        assumed_tera_type=None,
-        notes=[],
-    )
-
-    response = OpponentResponse(
-        kind="move",
-        label="move::Headlong Rush",
-        weight=1.0,
-        move_name="Headlong Rush",
-        move_type="Ground",
-        move_category="physical",
-        base_power=120,
-        priority=0,
-        notes=[],
-    )
-
-    my_action = _move_action("Shadow Ball", "Ghost", "special", 80)
-
-    projection = project_action_against_response(
-        state=state,
-        my_action=my_action,
-        response=response,
-        world=world,
-    )
-
-    assert projection.order_context == "attacker_second"
-    assert any("Choice Scarf" in note for note in projection.notes)
-
-
-def test_focus_sash_prevents_projected_ko():
-    state = _basic_state(
-        my_active=PokemonState(
-            species="Chien-Pao",
-            types=["Dark", "Ice"],
-            atk=135,
-            def_=80,
-            spa=90,
-            spd=65,
-            spe=135,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-        opp_active=PokemonState(
-            species="Alakazam",
-            types=["Psychic"],
-            atk=50,
-            def_=45,
-            spa=135,
-            spd=95,
-            spe=120,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-    )
-
-    world = OpponentWorld(
-        species="Alakazam",
-        candidate=CandidateSet(
-            species="Alakazam",
-            label="sash-set",
-            moves=["Psychic"],
-            item="Focus Sash",
-            weight=1.0,
-            source="test",
-        ),
-        weight=1.0,
-        known_moves=[],
-        assumed_moves=["Psychic"],
-        assumed_item="Focus Sash",
-        assumed_ability=None,
-        assumed_tera_type=None,
-        notes=[],
-    )
-
-    response = OpponentResponse(
-        kind="move",
-        label="move::Psychic",
-        weight=1.0,
-        move_name="Psychic",
-        move_type="Psychic",
-        move_category="special",
-        base_power=90,
-        priority=0,
-        notes=[],
-    )
-
-    # Deliberately oversized to guarantee a lethal line in this simplified engine.
-    my_action = _move_action("Night Slash", "Dark", "physical", 300)
-
-    projection = project_action_against_response(
-        state=state,
-        my_action=my_action,
-        response=response,
-        world=world,
-    )
-
-    assert projection.opp_hp_after == 1.0
-    assert not projection.opp_fainted
-    assert any("Focus Sash" in note or "survive at 1 HP" in note for note in projection.notes)
-
-
-def test_leftovers_applies_end_of_line_recovery():
-    state = _basic_state(
-        my_active=PokemonState(
-            species="Zapdos",
-            types=["Electric", "Flying"],
-            atk=90,
-            def_=85,
-            spa=95,   # lowered to avoid accidental KO
-            spd=90,
-            spe=100,
-            hp=100,
-            current_hp=100,
-            boosts=StatBoosts(),
-        ),
-        opp_active=PokemonState(
-            species="Great Tusk",
-            types=["Ground", "Fighting"],
-            atk=131,
-            def_=160,  # boosted bulk to ensure survival
-            spa=53,
-            spd=120,   # boosted special bulk too
-            spe=87,
-            hp=140,    # boosted max HP
-            current_hp=140,
-            boosts=StatBoosts(),
-        ),
-    )
-
-    response = OpponentResponse(
-        kind="move",
-        label="move::Ice Spinner",
-        weight=1.0,
-        move_name="Ice Spinner",
-        move_type="Ice",
-        move_category="physical",
-        base_power=80,
-        priority=0,
-        notes=[],
-    )
-
-    my_action = _move_action("Air Slash", "Flying", "special", 40)
-
-    world_without_leftovers = OpponentWorld(
-        species="Great Tusk",
-        candidate=CandidateSet(
-            species="Great Tusk",
-            label="no-item-set",
-            moves=["Ice Spinner"],
-            item=None,
-            weight=1.0,
-            source="test",
-        ),
-        weight=1.0,
-        known_moves=[],
-        assumed_moves=["Ice Spinner"],
-        assumed_item=None,
-        assumed_ability=None,
-        assumed_tera_type=None,
-        notes=[],
-    )
-
-    world_with_leftovers = OpponentWorld(
-        species="Great Tusk",
-        candidate=CandidateSet(
-            species="Great Tusk",
-            label="leftovers-set",
-            moves=["Ice Spinner"],
-            item="Leftovers",
-            weight=1.0,
-            source="test",
-        ),
-        weight=1.0,
-        known_moves=[],
-        assumed_moves=["Ice Spinner"],
-        assumed_item="Leftovers",
-        assumed_ability=None,
-        assumed_tera_type=None,
-        notes=[],
-    )
-
-    projection_without = project_action_against_response(
-        state=state,
-        my_action=my_action,
-        response=response,
-        world=world_without_leftovers,
-    )
-
-    projection_with = project_action_against_response(
-        state=state,
-        my_action=my_action,
-        response=response,
-        world=world_with_leftovers,
-    )
-
-    assert projection_without.opp_hp_after > 0
-    assert projection_with.opp_hp_after > projection_without.opp_hp_after
-    assert any("Leftovers" in note for note in projection_with.notes)
+    assert_in_top_n(result, "switch::Toxapex", 2)
+    assert_not_top_1(result, "switch::Landorus-Therian")

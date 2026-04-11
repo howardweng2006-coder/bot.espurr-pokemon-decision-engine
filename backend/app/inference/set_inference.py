@@ -67,6 +67,53 @@ SEEDED_OPPONENT_PRIORS: dict[str, list[CandidateSet]] = {
     ],
 }
 
+# Small species-aware fallback layer for high-impact competitive realism.
+# This is intentionally tiny and should later be replaced by provider-backed priors.
+SPECIES_DEFAULT_ABILITY: dict[str, str] = {
+    "Rotom-Wash": "Levitate",
+    "Rotom-Heat": "Levitate",
+    "Rotom-Mow": "Levitate",
+    "Rotom-Frost": "Levitate",
+    "Rotom-Fan": "Levitate",
+    "Rotom": "Levitate",
+    "Weezing": "Levitate",
+    "Hydreigon": "Levitate",  # example of why this table should stay curated; delete if wrong
+}
+
+# Keep this very small. The goal is not to simulate the metagame yet.
+SPECIES_FALLBACK_MOVES: dict[str, list[str]] = {
+    "Rotom-Wash": ["Hydro Pump", "Volt Switch", "Will-O-Wisp", "Pain Split"],
+}
+
+def _merge_revealed_moves(base_moves: list[str], revealed_moves: list[str]) -> list[str]:
+    merged = list(base_moves)
+    for revealed_move in revealed_moves:
+        if revealed_move not in merged:
+            merged.append(revealed_move)
+    return merged
+
+
+def _build_species_fallback_candidate(pokemon: PokemonState) -> CandidateSet | None:
+    species = pokemon.species
+    if not species:
+        return None
+
+    ability = SPECIES_DEFAULT_ABILITY.get(species)
+    fallback_moves = SPECIES_FALLBACK_MOVES.get(species, [])
+    merged_moves = _merge_revealed_moves(fallback_moves, list(pokemon.revealed_moves))
+
+    if ability is None and not merged_moves:
+        return None
+
+    return CandidateSet(
+        species=species,
+        label="species-fallback-set",
+        moves=merged_moves,
+        ability=ability,
+        weight=1.0,
+        source="species-fallback",
+    )
+
 
 def infer_opposing_active_set(state: BattleState) -> InferenceResult:
     opposing_active = state.opponent_side.active
@@ -88,6 +135,19 @@ def infer_pokemon_state(pokemon: PokemonState) -> InferenceResult:
 
     seeded = SEEDED_OPPONENT_PRIORS.get(species)
     if not seeded:
+        fallback_candidate = _build_species_fallback_candidate(pokemon)
+        if fallback_candidate is not None:
+            return InferenceResult(
+                species=species,
+                candidates=[fallback_candidate],
+                confidence_label="species-fallback",
+                notes=[
+                    f"No seeded priors found for {species}.",
+                    "Used species-aware fallback candidate for basic competitive realism.",
+                    "Fallback preserves revealed moves and injects only high-impact deterministic assumptions.",
+                ],
+            )
+
         placeholder_candidate = CandidateSet(
             species=species,
             label="generic-placeholder-set",
@@ -108,10 +168,7 @@ def infer_pokemon_state(pokemon: PokemonState) -> InferenceResult:
 
     candidates: list[CandidateSet] = []
     for candidate in seeded:
-        merged_moves = list(candidate.moves)
-        for revealed_move in pokemon.revealed_moves:
-            if revealed_move not in merged_moves:
-                merged_moves.append(revealed_move)
+        merged_moves = _merge_revealed_moves(candidate.moves, list(pokemon.revealed_moves))
 
         candidates.append(
             CandidateSet(
