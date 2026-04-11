@@ -5,18 +5,143 @@ from typing import Dict, List, Literal, Optional
 
 
 ResponseKind = Literal["move", "switch"]
+EvidenceDecision = Literal["keep", "downweight", "eliminate"]
+ConstraintKind = Literal["confirmed", "constrained", "meta_inferred"]
+
+
+@dataclass(frozen=True)
+class WeightedValue:
+    value: str
+    weight: float
+    source_weight: float = 1.0
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class WeightedSpread:
+    label: str
+    nature: Optional[str] = None
+    evs: Dict[str, int] = field(default_factory=dict)
+    ivs: Dict[str, int] = field(default_factory=dict)
+    weight: float = 0.0
+    source_weight: float = 1.0
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class WeightedPair:
+    left: str
+    right: str
+    weight: float
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class PairAssociations:
+    move_move: List[WeightedPair] = field(default_factory=list)
+    move_item: List[WeightedPair] = field(default_factory=list)
+    move_ability: List[WeightedPair] = field(default_factory=list)
+    move_tera: List[WeightedPair] = field(default_factory=list)
+    item_ability: List[WeightedPair] = field(default_factory=list)
+    item_spread: List[WeightedPair] = field(default_factory=list)
+    ability_tera: List[WeightedPair] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class SpeciesPrior:
+    species: str
+    usage_weight: float
+
+    moves: List[WeightedValue] = field(default_factory=list)
+    items: List[WeightedValue] = field(default_factory=list)
+    abilities: List[WeightedValue] = field(default_factory=list)
+    tera_types: List[WeightedValue] = field(default_factory=list)
+    spreads: List[WeightedSpread] = field(default_factory=list)
+
+    teammate_weights: List[WeightedValue] = field(default_factory=list)
+    lead_weights: List[WeightedValue] = field(default_factory=list)
+
+    associations: PairAssociations = field(default_factory=PairAssociations)
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class MetaPriorSnapshot:
+    format_id: str
+    generation: int
+    rating_bucket: str
+    month_window: List[str]
+    species_priors: Dict[str, SpeciesPrior] = field(default_factory=dict)
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass
+class CandidateConstraint:
+    kind: ConstraintKind
+    field_name: str
+    expected_value: str
+    source: str
+    hard: bool = False
+    notes: List[str] = field(default_factory=list)
+
+
+@dataclass
+class CandidateCheckResult:
+    decision: EvidenceDecision
+    multiplier: float = 1.0
+    reasons: List[str] = field(default_factory=list)
+
+
+@dataclass
+class CandidateBuilderConfig:
+    max_moves_per_set: int = 4
+    max_candidates: int = 12
+
+    top_moves: int = 12
+    top_items: int = 6
+    top_abilities: int = 4
+    top_tera_types: int = 6
+    top_spreads: int = 6
+
+    min_weight_threshold: float = 0.01
+    pair_weight_floor: float = 0.05
+
+    preserve_revealed_moves: bool = True
+    soft_downweight_unusual: bool = True
+    hard_eliminate_contradictions: bool = True
 
 
 @dataclass
 class CandidateSet:
-    species: Optional[str]
+    species: str
     label: str
+
     moves: List[str] = field(default_factory=list)
     item: Optional[str] = None
     ability: Optional[str] = None
     tera_type: Optional[str] = None
-    weight: float = 1.0
-    source: str = "placeholder"
+    spread_label: Optional[str] = None
+    nature: Optional[str] = None
+    evs: Dict[str, int] = field(default_factory=dict)
+    ivs: Dict[str, int] = field(default_factory=dict)
+
+    prior_weight: float = 0.0
+    compatibility_weight: float = 1.0
+    evidence_weight: float = 1.0
+    final_weight: float = 0.0
+
+    source: str = "meta_provider"
+
+    confirmed_moves: List[str] = field(default_factory=list)
+    assumed_moves: List[str] = field(default_factory=list)
+
+    notes: List[str] = field(default_factory=list)
+    penalties: List[str] = field(default_factory=list)
+    elimination_reasons: List[str] = field(default_factory=list)
+
+    @property
+    def is_eliminated(self) -> bool:
+        return bool(self.elimination_reasons)
 
 
 @dataclass
@@ -27,10 +152,11 @@ class InferenceResult:
     notes: List[str] = field(default_factory=list)
 
     def normalized_weights(self) -> Dict[str, float]:
-        total = sum(candidate.weight for candidate in self.candidates) or 1.0
+        viable = [candidate for candidate in self.candidates if not candidate.is_eliminated]
+        total = sum(candidate.final_weight for candidate in viable) or 1.0
         return {
-            candidate.label: candidate.weight / total
-            for candidate in self.candidates
+            candidate.label: candidate.final_weight / total
+            for candidate in viable
         }
 
 
@@ -39,12 +165,14 @@ class OpponentWorld:
     species: Optional[str]
     candidate: CandidateSet
     weight: float
+
     known_moves: List[str] = field(default_factory=list)
     assumed_moves: List[str] = field(default_factory=list)
 
     assumed_item: Optional[str] = None
     assumed_ability: Optional[str] = None
     assumed_tera_type: Optional[str] = None
+    assumed_spread_label: Optional[str] = None
 
     notes: List[str] = field(default_factory=list)
 

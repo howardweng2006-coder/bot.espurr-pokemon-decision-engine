@@ -25,24 +25,34 @@ The evaluation engine must remain input-agnostic.
 
 # CURRENT DEVELOPMENT PHASE
 
-Espurr has completed its first major backend intelligence refactor.
+Espurr has completed its first major backend intelligence refactor
+and its first scenario-testing pass.
 
-We are now in the:
+We are now moving into the:
 
-🚀 ENGINE INTELLIGENCE + SCENARIO REFINEMENT PHASE
+🏗️ COMPETITIVE KNOWLEDGE + SCORING INFRASTRUCTURE PHASE
+
+This phase exists because pure scenario-by-scenario refinement started to expose
+a structural bottleneck:
+
+- scenario tests are useful for finding failures
+- but patching intelligence directly into evaluation / lookahead code is becoming brittle
+- core competitive knowledge is still too hardcoded / placeholder-driven
+- future intelligence work needs cleaner data and scoring architecture underneath it
 
 Focus has shifted from:
-- structuring code
-- building endpoints
-- installing the core decision substrate
+- proving the engine substrate works
+- reconnecting the frontend
+- adding first-pass continuation / world-aware reasoning
+- using scenario tests to expose decision-quality gaps
 
 → to:
 
-- improving competitive decision quality
-- refining search and opponent modeling
-- improving uncertainty handling
-- reconnecting the frontend to the modern backend contract
-- using scenario testing to drive intelligence upgrades
+- building a real competitive prior pipeline
+- cleaning up provider / data architecture
+- creating a cleaner scoring pipeline for future intelligence layers
+- reducing hardcoded competitive logic scattered across engine files
+- keeping scenario tests as validation, not as the place where architecture is invented
 
 
 --------------------------------------------------
@@ -90,10 +100,18 @@ We model:
 - branch evidence updates
 - cross-world reweighting during continuation reasoning
 
-Future data sources:
+Long-term intended data sources:
 - Smogon usage stats
 - Smogon sample sets
 - MunchStats
+- normalized provider-backed competitive snapshots
+
+Key realization from the last engineering pass:
+the current engine substrate is strong enough that future intelligence quality now depends heavily on the quality of:
+- priors
+- move / item / ability data
+- scoring decomposition
+- inference architecture
 
 
 --------------------------------------------------
@@ -128,7 +146,7 @@ META-INFERRED
 
 Espurr evaluates actions across multiple plausible opponent worlds.
 
-Each action now considers:
+Each action currently considers:
 - immediate projected outcome
 - survivability
 - turn order
@@ -157,8 +175,17 @@ Current output includes:
 - dominant reason
 - continuation-driven signal
 
+Important recent lesson:
+the current score buckets are structurally useful,
+but too much intelligence work is still trying to live directly inside evaluator / lookahead code.
+
+Next phase goal:
+keep the high-level evaluation contract,
+but move toward cleaner scoring components so future intelligence does not become patchy or hideous.
+
 Longer-term direction:
 - stronger expected value across inferred distributions
+- cleaner utility / progress / tempo scoring
 - better branch-specific belief updates
 - better continuation search
 - confidence-aware recommendations
@@ -233,6 +260,47 @@ backend/app/
     moves.json
     typeChart.json
 
+Near-future architectural direction:
+
+backend/app/
+
+  providers/
+    pokemon_provider.py
+    move_provider.py
+    type_chart_provider.py
+    item_provider.py              (planned)
+    ability_provider.py           (planned)
+    format_provider.py            (planned)
+    meta_provider.py              (planned)
+
+  inference/
+    models.py
+    set_inference.py
+    belief_updater.py
+    candidate_builder.py          (planned)
+    consistency_checks.py         (planned)
+
+  engine/
+    evaluation_engine.py
+    response_engine.py
+    projection_engine.py
+    lookahead_engine.py
+    scoring/                      (planned)
+      tactical_scorer.py
+      switch_scorer.py
+      utility_scorer.py
+      setup_scorer.py
+      hazard_scorer.py
+      continuation_scorer.py
+      uncertainty_scorer.py
+
+The exact filenames do not have to match this yet,
+but this is the intended direction:
+- providers own external / normalized competitive data
+- inference owns world construction and reweighting
+- scoring owns reusable intelligence contributions
+- evaluation orchestrates instead of hardcoding everything itself
+
 
 --------------------------------------------------
 
@@ -286,7 +354,7 @@ PokemonState
 
 ENGINE LAYER
 
-Pure logic modules:
+Pure battle logic modules:
 
 damage_engine
 speed_engine
@@ -297,18 +365,34 @@ projection_engine
 lookahead_engine
 evaluation_engine
 
+Planned scoring decomposition layer:
+- tactical scoring
+- switch scoring
+- utility / progress scoring
+- setup / tempo scoring
+- hazard-control scoring
+- continuation scoring
+- uncertainty penalty scoring
+
 INFERENCE LAYER
 
+Current:
 - candidate set modeling
 - belief updating
 - branch evidence updates
 - cross-world reweighting
-- placeholder priors now structurally integrated into evaluation
+- placeholder / seeded priors integrated into evaluation
+
+Near-future goal:
+- provider-backed candidate world generation
+- archetype construction from external competitive data
+- stronger consistency filtering
+- less hardcoded species-specific fallback logic
 
 EXPLANATION LAYER
 
 - converts engine decisions into human-readable reasoning
-- now surfaces continuation / search signals, stability, and dominant drivers
+- surfaces continuation / search signals, stability, and dominant drivers
 
 ADAPTER LAYER
 
@@ -317,8 +401,17 @@ ADAPTER LAYER
 
 PROVIDER LAYER
 
-- data access (pokemon, moves, types)
-- future home for external meta-prior ingestion
+Current:
+- pokemon
+- moves
+- types
+
+Near-future:
+- items
+- abilities
+- format rules
+- meta priors
+- normalized competitive knowledge snapshots
 
 
 --------------------------------------------------
@@ -360,6 +453,13 @@ Continuation:
 
 6. Output:
   ranked actions + confidence + search / continuation signals
+
+Important context:
+this pipeline works,
+but future intelligence should increasingly be fed by:
+- stronger provider-backed priors
+- cleaner scoring hooks
+- less direct hardcoding inside evaluation_engine.py / lookahead_engine.py
 
 
 --------------------------------------------------
@@ -412,7 +512,8 @@ Item / ability hooks (first-pass subset):
 - Focus Sash
 
 Inference / belief:
-- seeded / placeholder priors
+- seeded priors for a small subset
+- placeholder fallback for the rest
 - revealed moves preserved
 - branch evidence updates
 - cross-world reweighting
@@ -420,7 +521,7 @@ Inference / belief:
 Layered evaluation:
 - tactical score bucket
 - positional score bucket
-- strategic score bucket now carries real continuation / search value
+- strategic score bucket carries continuation / search value
 - uncertainty score bucket
 - total action score derived from score breakdown
 
@@ -444,34 +545,67 @@ Explanation:
 Testing:
 - unit tests (engines)
 - scenario tests (decision behavior)
-- targeted hook tests for new item / ability / continuation behavior
+- targeted hook tests for items / abilities / continuation behavior
+
+Recent scenario-testing outcome:
+- the harness is useful and should remain
+- but trying to solve every failure directly inside evaluator / lookahead logic quickly becomes messy
+- this directly motivated the shift into the current structural pipeline phase
 
 
 --------------------------------------------------
 
 # Known Limitations
 
-- search is still shallow and heuristic rather than deep multi-turn planning
-- continuation-state rebuilding is evaluation-grade, not simulator-grade
-- inference architecture exists, but priors are still seeded / placeholder-level
-- item / ability modeling exists only for a limited high-impact subset
-- EV / nature modeling is not implemented
-- Tera modeling is still very limited
+High-priority structural limitations:
+- no real meta-prior pipeline from external competitive sources yet
+- inference still depends too much on seeded priors / placeholders / local fallbacks
+- provider layer is still too thin for long-term intelligence work
+- scoring logic is still too centralized inside evaluation / lookahead flow
+- competitive knowledge is still too hardcoded in places where it should eventually be provider-backed
+- data sources are still lightweight local JSON / subsets rather than a richer canonical competitive knowledge layer
+
+High-priority intelligence limitations:
 - response generation is improved, but switch prediction and hidden coverage prediction are still coarse
-- opponent modeling exists, but branch reweighting and evidence handling are still first-pass
-- uncertainty handling is still relatively thin compared to tactical / positional / strategic scoring
-- no team-role, win-condition, or preservation logic yet
+- no strong utility / progress / tempo scoring architecture yet
 - no hazard removal / pivot move value yet
-- no robust randomness-aware outcome distribution beyond min/max damage-style estimates
-- no strong speed-evidence or damage-roll-evidence belief updates yet
-- no full meta-prior pipeline from real external competitive sources yet
-- no polished simulator-like action resolution for statuses, secondary effects, recovery loops, or item consumption
-- forced-switch replacement selection is still simplistic
 - setup-value modeling is still weak
 - tempo / initiative is not yet a first-class modeled concept
-- frontend is now reconnected, but still needs polish around the modern decision-engine output
+- no team-role, win-condition, or preservation logic yet
+- uncertainty handling is still relatively thin compared to tactical / positional / strategic scoring
+- no strong speed-evidence or damage-roll-evidence belief updates yet
+- opponent modeling exists, but branch reweighting and evidence handling are still first-pass
+
+Search / simulation limitations:
+- search is still shallow and heuristic rather than deep multi-turn planning
+- continuation-state rebuilding is evaluation-grade, not simulator-grade
+- no robust randomness-aware outcome distribution beyond min/max damage-style estimates
+- no polished simulator-like action resolution for statuses, secondary effects, recovery loops, or item consumption
+- forced-switch replacement selection is still simplistic
+
+Competitive modeling limitations:
+- EV / nature modeling is not implemented
+- Tera modeling is still very limited
+- item / ability modeling exists only for a limited high-impact subset
+
+Product / UX limitations:
+- frontend is reconnected, but still needs polish around the modern decision-engine output
+- reasoning visibility is good enough for debugging, but not yet polished as a public-facing product experience
+
+Important priority note:
+not all known limitations are immediate next steps.
+
+Current priority order is:
+1. structural priors / provider / scoring infrastructure
+2. stronger inference and response realism
+3. better utility / tempo / strategic reasoning
+4. deeper continuation search
+5. richer hidden-stat and full-mechanics modeling
 
 
+
+meta-prior ingestion refresh is currently manual
+later target: automate rolling snapshot refresh for production deployment
 --------------------------------------------------
 
 # Scenario Testing Harness
@@ -485,9 +619,10 @@ Uses serialized battle states.
 Validates:
 - decision correctness
 - regression prevention
-- intelligence improvements after refactors
+- competitive realism failures
+- whether structural upgrades actually improve decision quality
 
-Examples already relevant to the new backend:
+Examples already relevant:
 - hazard-aware switching
 - choice-scarf order pressure
 - Levitate blocking Ground lines
@@ -495,9 +630,28 @@ Examples already relevant to the new backend:
 - Leftovers end-of-line recovery
 - continuation-aware reasoning
 
-Next scenario-testing goal:
-- competitive scenario refinement against real battle patterns
-- use failures to prioritize the next intelligence upgrades
+Important updated role of scenarios:
+scenario tests remain important,
+but they are now primarily used to:
+- expose failure clusters
+- validate structural upgrades
+- prevent regressions after infrastructure refactors
+
+Scenario tests should not become the main place where architecture is improvised.
+
+Use them as:
+- validator
+- prioritizer
+- acceptance test layer
+
+Not as:
+- justification for endless local helper patches
+
+Preferred scenario usage now:
+1. keep a small baseline regression pack
+2. keep aspirational xfail-style scenarios for missing concepts
+3. use failures to decide what structural layer should be built next
+4. after structural upgrades, rerun the pack to measure improvement
 
 
 --------------------------------------------------
@@ -523,6 +677,11 @@ inference/models.py
 inference/set_inference.py
 inference/belief_updater.py
 
+providers/pokemon_provider.py
+providers/move_provider.py
+providers/type_chart_provider.py
+providers/provider_utils.py
+
 explain/explanation_engine.py
 
 Frontend reconnect surface:
@@ -530,59 +689,76 @@ frontend/src/app/components/EvaluatePositionPanel.tsx
 frontend/src/app/lib/api.ts
 frontend/src/app/page.tsx
 
-Scenario refinement surface:
-engine/evaluation_engine.py
-engine/lookahead_engine.py
-engine/response_engine.py
-inference/set_inference.py
-inference/belief_updater.py
+Scenario / validation surface:
 tests/scenarios/test_scenarios.py
+
+Likely next structural files:
+providers/meta_provider.py
+providers/item_provider.py
+providers/ability_provider.py
+providers/format_provider.py
+inference/candidate_builder.py
+engine/scoring/*
 
 
 --------------------------------------------------
 
-# Next Major Development Steps (ENGINE INTELLIGENCE)
+# Next Major Development Steps
 
-1. Competitive scenario refinement
-- run realistic battle scenarios through the current engine
-- identify where decisions still fail despite the new substrate
-- prioritize upgrades based on observed competitive failure modes
+1. Build the competitive prior pipeline
+- design a normalized archetype / candidate-set input shape
+- ingest external competitive knowledge from sources like Smogon / MunchStats
+- move away from tiny seeded priors and generic placeholders
+- let inference construct worlds from provider-backed competitive data
 
-2. Improve opponent response realism
+2. Expand the provider layer
+- improve canonical data access for pokemon / moves / types
+- add providers for items / abilities / formats / meta knowledge
+- reduce hardcoded competitive facts in engine files
+- move toward clearer source-of-truth data organization
+
+3. Refactor scoring into cleaner components
+- decompose evaluation into reusable scoring modules / hooks
+- separate tactical, switch, utility, setup, hazard, continuation, and uncertainty logic more cleanly
+- keep evaluation_engine.py as orchestrator rather than intelligence dumping ground
+- make future reasoning layers easier to add without turning evaluator code ugly
+
+4. Strengthen inference quality after provider support exists
+- better candidate-set construction
+- stronger consistency filtering
+- better item / ability / archetype narrowing
+- better use of revealed move evidence
+- groundwork for EV / nature / Tera priors later
+
+5. Improve opponent response realism
 - better switch likelihood modeling
 - better switch target selection
 - better hidden coverage prediction
 - better setup / utility move handling
 
-3. Strengthen inference quality
-- move from seeded priors toward real meta-prior ingestion
-- add better consistency filtering
-- improve item / ability / archetype narrowing
-
-4. Improve strategic Pokémon reasoning
+6. Improve strategic Pokémon reasoning
+- utility / progress move value
+- pivot / hazard-control value
+- setup / tempo value
 - team-role preservation
 - win-condition preservation
 - sack logic
-- pivot / hazard-control value
-- setup-value logic
 
-5. Improve uncertainty realism
-- speed evidence updates
-- damage-roll evidence updates
-- better confidence handling
-- better randomness-aware outcome modeling
-
-6. Improve continuation search
+7. Improve continuation search after the above layers are stronger
 - stronger continuation-state rebuilding
 - deeper / cleaner lookahead
 - better branch-specific state transitions
 - possible future recursive expectimax-style expansion
 
-7. Expand mechanics coverage
+8. Expand mechanics coverage later
 - more items and abilities
 - stronger Tera handling
 - statuses / secondary effects / item consumption
 - better forced-switch / replacement logic
+
+Important sequencing principle:
+do not search a bad tree harder.
+Better priors, providers, and scoring architecture should come before deeper search.
 
 
 --------------------------------------------------
@@ -600,70 +776,64 @@ Supporting utility panels:
 - DamagePreviewPanel
 - TypeEffectivenessPanel
 
-
-Frontend should now be used to:
+Frontend should currently be used to:
 - inspect ranked actions
 - inspect continuation / search signals
 - inspect explanation quality
-- support scenario refinement and debugging
+- inspect assumption quality
+- support scenario validation and debugging
+
+Frontend is not the main priority in this phase,
+but should stay aligned enough to inspect new provider / inference / scoring outputs as they become available.
 
 
 --------------------------------------------------
 
 # Development Philosophy
 
-Core architecture is now stable enough for real intelligence work.
+Espurr is no longer at the stage where pure architecture work in the abstract makes sense,
+but it is also no longer at the stage where patching one failing scenario at a time is the best path.
 
-Focus is now on:
-- decision quality
-- competitive realism
-- explainability
-- scenario-driven refinement
-- keeping frontend and backend aligned
+Current development philosophy is now:
 
-Build vertically through scenario-driven improvements.
+build the next structural layer that future intelligence feeds off of,
+then validate it with scenarios.
 
-Every improvement should:
-- fix a failing scenario OR
-- add a new scenario OR
-- expose an important reasoning signal more clearly
+This means:
 
-Do not refactor backend in the abstract without a concrete decision-quality reason.
+- scenarios still matter
+- decision quality still matters
+- but the next bottleneck is system design for competitive knowledge and scoring infrastructure
 
-At this phase, scenario failures should decide the next intelligence upgrade.
+Practical rules:
 
-Development should now move fastest through scenario batches, not abstract limitation lists.
+- do not scatter hardcoded competitive knowledge across engine files unless it is a temporary bridge with a clear replacement path
+- do not keep adding local helper patches when the missing layer is clearly provider / priors / scoring architecture
+- use scenarios to reveal failure themes, then build the structural layer that resolves those themes cleanly
+- preserve the engine’s input-agnostic core while making competitive knowledge richer underneath it
 
-Best workflow:
-- collect a batch of competitive scenarios
-- group them by failure theme
-- identify the shared missing concept behind the failures
-- implement one refactor per theme
-- rerun the whole scenario batch
+Best workflow for the next phase:
+1. identify the structural bottleneck exposed by recent scenario work
+2. design the provider / inference / scoring layer that should own that logic
+3. implement that layer cleanly
+4. rerun the scenario pack
+5. only then patch finer competitive logic if still necessary
 
-Examples of good scenario themes:
-- switch prediction / defensive pivots
-- preservation / sack logic
-- setup / tempo
-- risk / uncertainty handling
+Current heuristic:
+- if a failure is basic competitive realism and solved cleanly by better priors or provider-backed knowledge, prefer architecture
+- if a failure is clearly due to missing battle reasoning after the data layer is strong enough, then refine intelligence
+- if a failure only becomes visible after many turns of sequencing, that belongs later in deeper search work
 
-Do not treat every scenario as an isolated patch if multiple scenarios point to the same missing intelligence layer.
+The project should now move through:
 
-At this phase, the goal is not “fix one known limitation at a time.”
-The goal is:
-- use scenario clusters to discover the next missing reasoning layer
-- implement the smallest stable refactor that fixes many related failures
-- avoid brittle case-by-case heuristics when a shared abstraction is missing
+competitive data / priors
+→ cleaner inference
+→ cleaner scoring architecture
+→ scenario validation
+→ deeper search later
 
-Preferred refinement loop:
-1. collect 10–20 scenarios
-2. cluster them into 2–4 themes
-3. refactor engine logic around those themes
-4. rerun the full scenario pack
-5. repeat
+not:
 
-Frontend should stay aligned enough to inspect:
-- ranked actions
-- continuation / search signals
-- explanation quality
-- failure patterns during scenario testing
+endless evaluator patching
+→ brittle helpers
+→ messy intelligence code

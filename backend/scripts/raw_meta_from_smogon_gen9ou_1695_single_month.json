@@ -1,0 +1,5501 @@
+{
+  "format_id": "gen9ou",
+  "generation": 9,
+  "rating_bucket": "1695",
+  "month_window": [
+    "gen9ou-1695-2026-03-moveset"
+  ],
+  "species_priors": {
+    "Great Tusk": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Headlong Rush",
+          "weight": 0.91146
+        },
+        {
+          "value": "Rapid Spin",
+          "weight": 0.9024899999999999
+        },
+        {
+          "value": "Ice Spinner",
+          "weight": 0.79868
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.37865000000000004
+        },
+        {
+          "value": "Close Combat",
+          "weight": 0.30079999999999996
+        },
+        {
+          "value": "Bulk Up",
+          "weight": 0.19368
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.15972
+        },
+        {
+          "value": "Head Smash",
+          "weight": 0.08495
+        }
+      ],
+      "items": [
+        {
+          "value": "Booster Energy",
+          "weight": 0.30614
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.27292
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.17422
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.08773999999999998
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.07554
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.03466
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Protosynthesis",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.25854
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.2155
+        },
+        {
+          "label": "Jolly:252/4/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 252,
+            "atk": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.13887
+        },
+        {
+          "label": "Jolly:248/4/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 248,
+            "atk": 4,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05165
+        },
+        {
+          "label": "Jolly:252/0/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.02336
+        },
+        {
+          "label": "Jolly:248/4/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 248,
+            "atk": 4,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.02015
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Gholdengo",
+          "weight": 0.27854
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.26451
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.25602
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.17021
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.16513999999999998
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.16010000000000002
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.15859
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.14364000000000002
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.14026
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.13505
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Kingambit": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Sucker Punch",
+          "weight": 0.9984000000000001
+        },
+        {
+          "value": "Swords Dance",
+          "weight": 0.96729
+        },
+        {
+          "value": "Kowtow Cleave",
+          "weight": 0.7846
+        },
+        {
+          "value": "Iron Head",
+          "weight": 0.7812600000000001
+        },
+        {
+          "value": "Low Kick",
+          "weight": 0.31681000000000004
+        }
+      ],
+      "items": [
+        {
+          "value": "Leftovers",
+          "weight": 0.53175
+        },
+        {
+          "value": "Black Glasses",
+          "weight": 0.17399
+        },
+        {
+          "value": "Air Balloon",
+          "weight": 0.14766
+        },
+        {
+          "value": "Lum Berry",
+          "weight": 0.07492
+        },
+        {
+          "value": "Shuca Berry",
+          "weight": 0.01081
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.0097
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Supreme Overlord",
+          "weight": 0.98018
+        },
+        {
+          "value": "Defiant",
+          "weight": 0.01959
+        },
+        {
+          "value": "Pressure",
+          "weight": 0.00023
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.1388
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.10269
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06897
+        },
+        {
+          "label": "Adamant:252/252/0/0/4/0",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 252,
+            "atk": 252,
+            "spd": 4
+          },
+          "ivs": {},
+          "weight": 0.0623
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.062060000000000004
+        },
+        {
+          "label": "Adamant:240/252/0/0/0/16",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 240,
+            "atk": 252,
+            "spe": 16
+          },
+          "ivs": {},
+          "weight": 0.04929
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.37601999999999997
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.25331
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.21018
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.19318000000000002
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.18316
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.17506
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.17029
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.16347
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.15635
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.14877
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Gholdengo": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Make It Rain",
+          "weight": 0.82234
+        },
+        {
+          "value": "Shadow Ball",
+          "weight": 0.82162
+        },
+        {
+          "value": "Recover",
+          "weight": 0.5597099999999999
+        },
+        {
+          "value": "Nasty Plot",
+          "weight": 0.5153099999999999
+        },
+        {
+          "value": "Trick",
+          "weight": 0.37351999999999996
+        },
+        {
+          "value": "Focus Blast",
+          "weight": 0.23305
+        },
+        {
+          "value": "Psyshock",
+          "weight": 0.16687000000000002
+        },
+        {
+          "value": "Thunder Wave",
+          "weight": 0.16096
+        }
+      ],
+      "items": [
+        {
+          "value": "Air Balloon",
+          "weight": 0.38862
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.35753
+        },
+        {
+          "value": "Metal Coat",
+          "weight": 0.05929
+        },
+        {
+          "value": "Grassy Seed",
+          "weight": 0.05049000000000001
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.0271
+        },
+        {
+          "value": "Shuca Berry",
+          "weight": 0.02569
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Good as Gold",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.42018
+        },
+        {
+          "label": "Bold:252/0/196/0/0/60",
+          "nature": "Bold",
+          "evs": {
+            "hp": 252,
+            "def": 196,
+            "spe": 60
+          },
+          "ivs": {},
+          "weight": 0.0819
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04736
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03487
+        },
+        {
+          "label": "Modest:72/0/0/252/0/184",
+          "nature": "Modest",
+          "evs": {
+            "hp": 72,
+            "spa": 252,
+            "spe": 184
+          },
+          "ivs": {},
+          "weight": 0.02674
+        },
+        {
+          "label": "Timid:0/0/68/252/0/188",
+          "nature": "Timid",
+          "evs": {
+            "def": 68,
+            "spa": 252,
+            "spe": 188
+          },
+          "ivs": {},
+          "weight": 0.02473
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.42779000000000006
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.40386000000000005
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.25769
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.21481999999999998
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.21154
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.1936
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.1724
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.16892
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.15625999999999998
+        },
+        {
+          "value": "Glimmora",
+          "weight": 0.13658
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Dragonite": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Dragon Dance",
+          "weight": 0.81757
+        },
+        {
+          "value": "Earthquake",
+          "weight": 0.79084
+        },
+        {
+          "value": "Extreme Speed",
+          "weight": 0.5794400000000001
+        },
+        {
+          "value": "Roost",
+          "weight": 0.42757
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.26813
+        },
+        {
+          "value": "Ice Spinner",
+          "weight": 0.25370000000000004
+        },
+        {
+          "value": "Encore",
+          "weight": 0.21139
+        },
+        {
+          "value": "Fire Punch",
+          "weight": 0.17087
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.59239
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.11103999999999999
+        },
+        {
+          "value": "Loaded Dice",
+          "weight": 0.08448
+        },
+        {
+          "value": "Choice Band",
+          "weight": 0.061130000000000004
+        },
+        {
+          "value": "Silk Scarf",
+          "weight": 0.033370000000000004
+        },
+        {
+          "value": "Lum Berry",
+          "weight": 0.03329
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Multiscale",
+          "weight": 0.99681
+        },
+        {
+          "value": "Inner Focus",
+          "weight": 0.00319
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.18871
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.16081
+        },
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.15639
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.09731
+        },
+        {
+          "label": "Adamant:104/252/0/0/0/152",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 104,
+            "atk": 252,
+            "spe": 152
+          },
+          "ivs": {},
+          "weight": 0.0358
+        },
+        {
+          "label": "Adamant:252/240/0/0/0/16",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 252,
+            "atk": 240,
+            "spe": 16
+          },
+          "ivs": {},
+          "weight": 0.030539999999999998
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Gholdengo",
+          "weight": 0.4335
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.42206000000000005
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.2267
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.22062
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.21993
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.19748000000000002
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.15523
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.15522
+        },
+        {
+          "value": "Darkrai",
+          "weight": 0.15463
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.15054
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Zamazenta": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Crunch",
+          "weight": 0.88517
+        },
+        {
+          "value": "Body Press",
+          "weight": 0.55213
+        },
+        {
+          "value": "Iron Defense",
+          "weight": 0.53745
+        },
+        {
+          "value": "Close Combat",
+          "weight": 0.44401
+        },
+        {
+          "value": "Heavy Slam",
+          "weight": 0.40838
+        },
+        {
+          "value": "Roar",
+          "weight": 0.34647
+        },
+        {
+          "value": "Stone Edge",
+          "weight": 0.29083
+        },
+        {
+          "value": "Ice Fang",
+          "weight": 0.20092
+        }
+      ],
+      "items": [
+        {
+          "value": "Leftovers",
+          "weight": 0.48264
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.17524
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.14666
+        },
+        {
+          "value": "Choice Band",
+          "weight": 0.057050000000000003
+        },
+        {
+          "value": "Light Clay",
+          "weight": 0.04147
+        },
+        {
+          "value": "Chesto Berry",
+          "weight": 0.03984
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Dauntless Shield",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.20714
+        },
+        {
+          "label": "Jolly:252/0/88/0/0/168",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 252,
+            "def": 88,
+            "spe": 168
+          },
+          "ivs": {},
+          "weight": 0.09881999999999999
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.08785
+        },
+        {
+          "label": "Jolly:0/4/252/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 4,
+            "def": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04275
+        },
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04257
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04086
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Gholdengo",
+          "weight": 0.31577
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.25108
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.20687
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.20104
+        },
+        {
+          "value": "Iron Treads",
+          "weight": 0.20064
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.19695000000000001
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.17696
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.15369
+        },
+        {
+          "value": "Deoxys-Speed",
+          "weight": 0.1499
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.14464
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Iron Valiant": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Moonblast",
+          "weight": 0.84572
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.41586
+        },
+        {
+          "value": "Close Combat",
+          "weight": 0.40987
+        },
+        {
+          "value": "Shadow Ball",
+          "weight": 0.40598999999999996
+        },
+        {
+          "value": "Calm Mind",
+          "weight": 0.35037
+        },
+        {
+          "value": "Encore",
+          "weight": 0.31784
+        },
+        {
+          "value": "Thunderbolt",
+          "weight": 0.31546
+        },
+        {
+          "value": "Vacuum Wave",
+          "weight": 0.19891999999999999
+        }
+      ],
+      "items": [
+        {
+          "value": "Booster Energy",
+          "weight": 0.7425499999999999
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.1592
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.02812
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.024460000000000003
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Quark Drive",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.39153
+        },
+        {
+          "label": "Naive:0/4/0/252/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.15903
+        },
+        {
+          "label": "Naive:0/252/0/4/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 252,
+            "spa": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07894
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07824
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05607
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.046849999999999996
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Kingambit",
+          "weight": 0.38676
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.30443000000000003
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.29847999999999997
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.2736
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.19285
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.16088999999999998
+        },
+        {
+          "value": "Deoxys-Speed",
+          "weight": 0.16086999999999999
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.15972
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.15471000000000001
+        },
+        {
+          "value": "Glimmora",
+          "weight": 0.14916000000000001
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Ogerpon-Wellspring": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Ivy Cudgel",
+          "weight": 0.99984
+        },
+        {
+          "value": "Swords Dance",
+          "weight": 0.51493
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.40852
+        },
+        {
+          "value": "Play Rough",
+          "weight": 0.37551
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.33927
+        },
+        {
+          "value": "Power Whip",
+          "weight": 0.31206
+        },
+        {
+          "value": "Horn Leech",
+          "weight": 0.26797
+        },
+        {
+          "value": "Encore",
+          "weight": 0.21191
+        }
+      ],
+      "items": [
+        {
+          "value": "Wellspring Mask",
+          "weight": 1.0
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Water Absorb",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.62909
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.11779
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06254
+        },
+        {
+          "label": "Jolly:0/244/12/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 244,
+            "def": 12,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05732
+        },
+        {
+          "label": "Jolly:4/252/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 4,
+            "atk": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.01814
+        },
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.01702
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.34835
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.32167999999999997
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.24423999999999998
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.23242000000000002
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.20940999999999999
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.19869
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.19332000000000002
+        },
+        {
+          "value": "Glimmora",
+          "weight": 0.19158999999999998
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.18134
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.17284
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Raging Bolt": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Thunderclap",
+          "weight": 0.9832599999999999
+        },
+        {
+          "value": "Thunderbolt",
+          "weight": 0.77693
+        },
+        {
+          "value": "Dragon Pulse",
+          "weight": 0.6410399999999999
+        },
+        {
+          "value": "Calm Mind",
+          "weight": 0.58358
+        },
+        {
+          "value": "Draco Meteor",
+          "weight": 0.35057000000000005
+        },
+        {
+          "value": "Volt Switch",
+          "weight": 0.27154
+        },
+        {
+          "value": "Weather Ball",
+          "weight": 0.18891
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.06494
+        }
+      ],
+      "items": [
+        {
+          "value": "Booster Energy",
+          "weight": 0.51705
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.17492000000000002
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.09812
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.05076
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.046630000000000005
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.04605000000000001
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Protosynthesis",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Modest:0/0/4/252/0/252",
+          "nature": "Modest",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.2289
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.12050000000000001
+        },
+        {
+          "label": "Modest:112/0/0/252/0/144",
+          "nature": "Modest",
+          "evs": {
+            "hp": 112,
+            "spa": 252,
+            "spe": 144
+          },
+          "ivs": {},
+          "weight": 0.09055999999999999
+        },
+        {
+          "label": "Modest:252/0/0/252/4/0",
+          "nature": "Modest",
+          "evs": {
+            "hp": 252,
+            "spa": 252,
+            "spd": 4
+          },
+          "ivs": {},
+          "weight": 0.08307
+        },
+        {
+          "label": "Modest:124/0/0/252/0/132",
+          "nature": "Modest",
+          "evs": {
+            "hp": 124,
+            "spa": 252,
+            "spe": 132
+          },
+          "ivs": {},
+          "weight": 0.03936
+        },
+        {
+          "label": "Modest:4/0/0/252/0/252",
+          "nature": "Modest",
+          "evs": {
+            "hp": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03152
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.38274
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.25858000000000003
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.22878
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.18741
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.18434999999999999
+        },
+        {
+          "value": "Walking Wake",
+          "weight": 0.16324000000000002
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.15855
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.15259999999999999
+        },
+        {
+          "value": "Ceruledge",
+          "weight": 0.15016
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.14996
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Kyurem": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Freeze-Dry",
+          "weight": 0.79778
+        },
+        {
+          "value": "Earth Power",
+          "weight": 0.78606
+        },
+        {
+          "value": "Ice Beam",
+          "weight": 0.41422
+        },
+        {
+          "value": "Icicle Spear",
+          "weight": 0.34084000000000003
+        },
+        {
+          "value": "Dragon Dance",
+          "weight": 0.3096
+        },
+        {
+          "value": "Substitute",
+          "weight": 0.27332999999999996
+        },
+        {
+          "value": "Draco Meteor",
+          "weight": 0.2707
+        },
+        {
+          "value": "Scale Shot",
+          "weight": 0.20603000000000002
+        }
+      ],
+      "items": [
+        {
+          "value": "Loaded Dice",
+          "weight": 0.29844000000000004
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.21088
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.17909
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.14175000000000001
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.07535
+        },
+        {
+          "value": "Never-Melt Ice",
+          "weight": 0.0342
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Pressure",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.2066
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07136999999999999
+        },
+        {
+          "label": "Timid:52/0/0/204/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 52,
+            "spa": 204,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.055830000000000005
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05426
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.042140000000000004
+        },
+        {
+          "label": "Lonely:0/252/0/4/0/252",
+          "nature": "Lonely",
+          "evs": {
+            "atk": 252,
+            "spa": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.037559999999999996
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.33907
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.30414
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.22487
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.20434999999999998
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.19644999999999999
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.19613
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.17843
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.17370999999999998
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.16774999999999998
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.16759000000000002
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Ting-Lu": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Earthquake",
+          "weight": 0.83473
+        },
+        {
+          "value": "Ruination",
+          "weight": 0.75669
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.6846099999999999
+        },
+        {
+          "value": "Whirlwind",
+          "weight": 0.59044
+        },
+        {
+          "value": "Spikes",
+          "weight": 0.36329999999999996
+        },
+        {
+          "value": "Rest",
+          "weight": 0.22288
+        },
+        {
+          "value": "Payback",
+          "weight": 0.16268999999999997
+        },
+        {
+          "value": "Sleep Talk",
+          "weight": 0.13488
+        }
+      ],
+      "items": [
+        {
+          "value": "Leftovers",
+          "weight": 0.6781900000000001
+        },
+        {
+          "value": "Red Card",
+          "weight": 0.125
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.10134
+        },
+        {
+          "value": "Weakness Policy",
+          "weight": 0.027690000000000003
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.02241
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Vessel of Ruin",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Careful:252/0/4/0/252/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.38204
+        },
+        {
+          "label": "Careful:248/0/8/0/252/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 248,
+            "def": 8,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.10274
+        },
+        {
+          "label": "Careful:252/0/0/0/252/4",
+          "nature": "Careful",
+          "evs": {
+            "hp": 252,
+            "spd": 252,
+            "spe": 4
+          },
+          "ivs": {},
+          "weight": 0.035230000000000004
+        },
+        {
+          "label": "Careful:252/4/0/0/252/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 252,
+            "atk": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.03196
+        },
+        {
+          "label": "Relaxed:252/0/4/0/252/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.02045
+        },
+        {
+          "label": "Adamant:248/124/68/0/68/0",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 248,
+            "atk": 124,
+            "def": 68,
+            "spd": 68
+          },
+          "ivs": {},
+          "weight": 0.020419999999999997
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Gholdengo",
+          "weight": 0.32517
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.32243
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.31595
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.25951
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.23305
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.22722
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.19759000000000002
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.19615
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.19355
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.18571000000000001
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Dragapult": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "U-turn",
+          "weight": 0.71833
+        },
+        {
+          "value": "Dragon Darts",
+          "weight": 0.63261
+        },
+        {
+          "value": "Will-O-Wisp",
+          "weight": 0.47176
+        },
+        {
+          "value": "Draco Meteor",
+          "weight": 0.41222000000000003
+        },
+        {
+          "value": "Hex",
+          "weight": 0.36223999999999995
+        },
+        {
+          "value": "Shadow Ball",
+          "weight": 0.31949
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.26504
+        },
+        {
+          "value": "Flamethrower",
+          "weight": 0.20454999999999998
+        }
+      ],
+      "items": [
+        {
+          "value": "Choice Band",
+          "weight": 0.25217
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.22975
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.22736
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.09974
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.0836
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.03143
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Infiltrator",
+          "weight": 0.5783
+        },
+        {
+          "value": "Clear Body",
+          "weight": 0.41271
+        },
+        {
+          "value": "Cursed Body",
+          "weight": 0.00899
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.23859000000000002
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.15496000000000001
+        },
+        {
+          "label": "Naive:0/4/0/252/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.10457000000000001
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.046490000000000004
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03908
+        },
+        {
+          "label": "Naive:0/60/0/196/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 60,
+            "spa": 196,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.038079999999999996
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.33795000000000003
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.30817
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.24172999999999997
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.20944
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.19879000000000002
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.16219
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.16102
+        },
+        {
+          "value": "Alomomola",
+          "weight": 0.15167
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.1402
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.13735
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Hatterene": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Psychic Noise",
+          "weight": 0.69638
+        },
+        {
+          "value": "Draining Kiss",
+          "weight": 0.6918099999999999
+        },
+        {
+          "value": "Nuzzle",
+          "weight": 0.66452
+        },
+        {
+          "value": "Healing Wish",
+          "weight": 0.35403
+        },
+        {
+          "value": "Pain Split",
+          "weight": 0.33787
+        },
+        {
+          "value": "Mystical Fire",
+          "weight": 0.33604
+        },
+        {
+          "value": "Dazzling Gleam",
+          "weight": 0.22252
+        },
+        {
+          "value": "Calm Mind",
+          "weight": 0.159
+        }
+      ],
+      "items": [
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.25542000000000004
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.19686
+        },
+        {
+          "value": "Eject Button",
+          "weight": 0.16671
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.13601000000000002
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.10557
+        },
+        {
+          "value": "Covert Cloak",
+          "weight": 0.03573
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Magic Bounce",
+          "weight": 0.99802
+        },
+        {
+          "value": "Healer",
+          "weight": 0.00196
+        },
+        {
+          "value": "Anticipation",
+          "weight": 1e-05
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Bold:252/0/204/0/0/52",
+          "nature": "Bold",
+          "evs": {
+            "hp": 252,
+            "def": 204,
+            "spe": 52
+          },
+          "ivs": {},
+          "weight": 0.22163
+        },
+        {
+          "label": "Bold:248/0/204/0/0/56",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 204,
+            "spe": 56
+          },
+          "ivs": {},
+          "weight": 0.04923
+        },
+        {
+          "label": "Bold:248/0/196/0/0/64",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 196,
+            "spe": 64
+          },
+          "ivs": {},
+          "weight": 0.04723
+        },
+        {
+          "label": "Modest:252/0/0/100/104/52",
+          "nature": "Modest",
+          "evs": {
+            "hp": 252,
+            "spa": 100,
+            "spd": 104,
+            "spe": 52
+          },
+          "ivs": {},
+          "weight": 0.04045
+        },
+        {
+          "label": "Quiet:252/0/4/252/0/0",
+          "nature": "Quiet",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spa": 252
+          },
+          "ivs": {},
+          "weight": 0.03984
+        },
+        {
+          "label": "Bold:252/0/252/0/0/4",
+          "nature": "Bold",
+          "evs": {
+            "hp": 252,
+            "def": 252,
+            "spe": 4
+          },
+          "ivs": {},
+          "weight": 0.03689
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.41806
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.24217
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.22954
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.21067
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.16815000000000002
+        },
+        {
+          "value": "Tornadus-Therian",
+          "weight": 0.14373
+        },
+        {
+          "value": "Walking Wake",
+          "weight": 0.13743
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.12415
+        },
+        {
+          "value": "Ceruledge",
+          "weight": 0.11983
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.11349000000000001
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Slowking-Galar": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Sludge Bomb",
+          "weight": 0.88409
+        },
+        {
+          "value": "Chilly Reception",
+          "weight": 0.74491
+        },
+        {
+          "value": "Future Sight",
+          "weight": 0.51576
+        },
+        {
+          "value": "Ice Beam",
+          "weight": 0.39287999999999995
+        },
+        {
+          "value": "Flamethrower",
+          "weight": 0.32692
+        },
+        {
+          "value": "Psychic Noise",
+          "weight": 0.27655
+        },
+        {
+          "value": "Thunder Wave",
+          "weight": 0.23419
+        },
+        {
+          "value": "Psyshock",
+          "weight": 0.18141
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.46858
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.2397
+        },
+        {
+          "value": "Shuca Berry",
+          "weight": 0.07251
+        },
+        {
+          "value": "Black Sludge",
+          "weight": 0.07096
+        },
+        {
+          "value": "Colbur Berry",
+          "weight": 0.06432
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.03489
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Regenerator",
+          "weight": 0.99862
+        },
+        {
+          "value": "Curious Medicine",
+          "weight": 0.00135
+        },
+        {
+          "value": "Own Tempo",
+          "weight": 3e-05
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Sassy:252/0/4/0/252/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.13766
+        },
+        {
+          "label": "Relaxed:248/0/252/0/8/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spd": 8
+          },
+          "ivs": {},
+          "weight": 0.07545
+        },
+        {
+          "label": "Calm:252/0/4/0/252/0",
+          "nature": "Calm",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.057510000000000006
+        },
+        {
+          "label": "Sassy:252/0/16/0/240/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 252,
+            "def": 16,
+            "spd": 240
+          },
+          "ivs": {},
+          "weight": 0.04731
+        },
+        {
+          "label": "Sassy:252/0/8/0/248/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 252,
+            "def": 8,
+            "spd": 248
+          },
+          "ivs": {},
+          "weight": 0.046130000000000004
+        },
+        {
+          "label": "Relaxed:252/0/252/0/4/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 252,
+            "def": 252,
+            "spd": 4
+          },
+          "ivs": {},
+          "weight": 0.041609999999999994
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.42497
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.31997
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.29757
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.24916
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.23196000000000003
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.21079
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.17754999999999999
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.17367000000000002
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.13662000000000002
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.13513
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Pecharunt": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Recover",
+          "weight": 0.96149
+        },
+        {
+          "value": "Malignant Chain",
+          "weight": 0.84028
+        },
+        {
+          "value": "Shadow Ball",
+          "weight": 0.72819
+        },
+        {
+          "value": "Parting Shot",
+          "weight": 0.65571
+        },
+        {
+          "value": "Nasty Plot",
+          "weight": 0.31965
+        },
+        {
+          "value": "Foul Play",
+          "weight": 0.20739999999999997
+        },
+        {
+          "value": "Toxic",
+          "weight": 0.15947
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.5969
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.16266999999999998
+        },
+        {
+          "value": "Air Balloon",
+          "weight": 0.12773
+        },
+        {
+          "value": "Covert Cloak",
+          "weight": 0.04152
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.025929999999999998
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Poison Puppeteer",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Bold:252/0/228/0/0/28",
+          "nature": "Bold",
+          "evs": {
+            "hp": 252,
+            "def": 228,
+            "spe": 28
+          },
+          "ivs": {},
+          "weight": 0.2007
+        },
+        {
+          "label": "Bold:248/0/252/0/8/0",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spd": 8
+          },
+          "ivs": {},
+          "weight": 0.08749000000000001
+        },
+        {
+          "label": "Timid:252/0/0/4/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 252,
+            "spa": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06983
+        },
+        {
+          "label": "Timid:248/0/0/8/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 248,
+            "spa": 8,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06421
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.055380000000000006
+        },
+        {
+          "label": "Timid:252/0/4/0/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03511
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.32595999999999997
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.26844
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.26342
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.25606
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.22207000000000002
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.19383
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.19126
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.17544
+        },
+        {
+          "value": "Iron Treads",
+          "weight": 0.1532
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.14951
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Corviknight": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Roost",
+          "weight": 0.9947199999999999
+        },
+        {
+          "value": "Defog",
+          "weight": 0.72571
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.68983
+        },
+        {
+          "value": "Brave Bird",
+          "weight": 0.52847
+        },
+        {
+          "value": "Body Press",
+          "weight": 0.50742
+        },
+        {
+          "value": "Iron Defense",
+          "weight": 0.36030999999999996
+        }
+      ],
+      "items": [
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.6509
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.28374
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.04333
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Pressure",
+          "weight": 0.96124
+        },
+        {
+          "value": "Mirror Armor",
+          "weight": 0.03821
+        },
+        {
+          "value": "Unnerve",
+          "weight": 0.00055
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Impish:248/0/252/0/8/0",
+          "nature": "Impish",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spd": 8
+          },
+          "ivs": {},
+          "weight": 0.29116
+        },
+        {
+          "label": "Impish:252/0/252/0/4/0",
+          "nature": "Impish",
+          "evs": {
+            "hp": 252,
+            "def": 252,
+            "spd": 4
+          },
+          "ivs": {},
+          "weight": 0.09537000000000001
+        },
+        {
+          "label": "Relaxed:248/0/252/0/8/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spd": 8
+          },
+          "ivs": {},
+          "weight": 0.08699
+        },
+        {
+          "label": "Sassy:252/0/4/0/252/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.0757
+        },
+        {
+          "label": "Impish:248/8/252/0/0/0",
+          "nature": "Impish",
+          "evs": {
+            "hp": 248,
+            "atk": 8,
+            "def": 252
+          },
+          "ivs": {},
+          "weight": 0.045439999999999994
+        },
+        {
+          "label": "Impish:180/0/132/0/0/196",
+          "nature": "Impish",
+          "evs": {
+            "hp": 180,
+            "def": 132,
+            "spe": 196
+          },
+          "ivs": {},
+          "weight": 0.02919
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Ting-Lu",
+          "weight": 0.38073
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.30957999999999997
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.2693
+        },
+        {
+          "value": "Gliscor",
+          "weight": 0.24123999999999998
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.22960999999999998
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.21072
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.18003
+        },
+        {
+          "value": "Dondozo",
+          "weight": 0.17552
+        },
+        {
+          "value": "Weezing-Galar",
+          "weight": 0.16043
+        },
+        {
+          "value": "Alomomola",
+          "weight": 0.15831
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Cinderace": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Pyro Ball",
+          "weight": 0.99169
+        },
+        {
+          "value": "Court Change",
+          "weight": 0.8371599999999999
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.8192900000000001
+        },
+        {
+          "value": "Will-O-Wisp",
+          "weight": 0.44165999999999994
+        },
+        {
+          "value": "Sucker Punch",
+          "weight": 0.36558999999999997
+        },
+        {
+          "value": "Gunk Shot",
+          "weight": 0.19609000000000001
+        },
+        {
+          "value": "High Jump Kick",
+          "weight": 0.17515
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.8430599999999999
+        },
+        {
+          "value": "Choice Band",
+          "weight": 0.05689
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.03881
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.01802
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Libero",
+          "weight": 0.61731
+        },
+        {
+          "value": "Blaze",
+          "weight": 0.38269
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.43219
+        },
+        {
+          "label": "Jolly:224/32/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 224,
+            "atk": 32,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.17116
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.13902
+        },
+        {
+          "label": "Jolly:4/252/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 4,
+            "atk": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04936
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03163
+        },
+        {
+          "label": "Jolly:232/24/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 232,
+            "atk": 24,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.02889
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.34765
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.27735
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.26641
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.2589
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.2398
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.20836
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.20528
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.1653
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.15803
+        },
+        {
+          "value": "Alomomola",
+          "weight": 0.13981
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Samurott-Hisui": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Ceaseless Edge",
+          "weight": 0.99921
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.62222
+        },
+        {
+          "value": "Razor Shell",
+          "weight": 0.60067
+        },
+        {
+          "value": "Sucker Punch",
+          "weight": 0.59565
+        },
+        {
+          "value": "Flip Turn",
+          "weight": 0.32325000000000004
+        },
+        {
+          "value": "Aqua Cutter",
+          "weight": 0.23437999999999998
+        },
+        {
+          "value": "Sacred Sword",
+          "weight": 0.17216
+        },
+        {
+          "value": "Aqua Jet",
+          "weight": 0.1465
+        }
+      ],
+      "items": [
+        {
+          "value": "Assault Vest",
+          "weight": 0.36995
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.16018999999999997
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.13932
+        },
+        {
+          "value": "Black Glasses",
+          "weight": 0.12774
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.12197
+        },
+        {
+          "value": "Choice Band",
+          "weight": 0.0268
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Sharpness",
+          "weight": 0.99729
+        },
+        {
+          "value": "Torrent",
+          "weight": 0.00271
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.25629
+        },
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.11326
+        },
+        {
+          "label": "Adamant:248/84/0/0/124/52",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 248,
+            "atk": 84,
+            "spd": 124,
+            "spe": 52
+          },
+          "ivs": {},
+          "weight": 0.10478
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.09787000000000001
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06591999999999999
+        },
+        {
+          "label": "Adamant:248/144/0/0/56/60",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 248,
+            "atk": 144,
+            "spd": 56,
+            "spe": 60
+          },
+          "ivs": {},
+          "weight": 0.03555
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Gholdengo",
+          "weight": 0.41817
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.34302
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.28961
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.28149
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.22977
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.19938
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.16715
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.16408999999999999
+        },
+        {
+          "value": "Landorus-Therian",
+          "weight": 0.15499000000000002
+        },
+        {
+          "value": "Iron Treads",
+          "weight": 0.15173999999999999
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Iron Treads": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Rapid Spin",
+          "weight": 0.9903400000000001
+        },
+        {
+          "value": "Earthquake",
+          "weight": 0.77413
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.74206
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.44531999999999994
+        },
+        {
+          "value": "Ice Spinner",
+          "weight": 0.42241
+        },
+        {
+          "value": "Earth Power",
+          "weight": 0.17917000000000002
+        },
+        {
+          "value": "Steel Beam",
+          "weight": 0.16394999999999998
+        },
+        {
+          "value": "Volt Switch",
+          "weight": 0.07769
+        }
+      ],
+      "items": [
+        {
+          "value": "Leftovers",
+          "weight": 0.36884
+        },
+        {
+          "value": "Booster Energy",
+          "weight": 0.3555
+        },
+        {
+          "value": "Air Balloon",
+          "weight": 0.09412000000000001
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.05312
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.05212
+        },
+        {
+          "value": "Clear Amulet",
+          "weight": 0.01634
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Quark Drive",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.23879
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.10848000000000001
+        },
+        {
+          "label": "Careful:248/0/0/0/252/8",
+          "nature": "Careful",
+          "evs": {
+            "hp": 248,
+            "spd": 252,
+            "spe": 8
+          },
+          "ivs": {},
+          "weight": 0.05546
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04534
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.042
+        },
+        {
+          "label": "Jolly:4/252/0/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 4,
+            "atk": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03398
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Zamazenta",
+          "weight": 0.32234999999999997
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.22940000000000002
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.21754
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.19364
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.17364000000000002
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.17033
+        },
+        {
+          "value": "Zapdos",
+          "weight": 0.16179
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.15683
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.15346
+        },
+        {
+          "value": "Pelipper",
+          "weight": 0.15253
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Gliscor": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Protect",
+          "weight": 0.93425
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.62969
+        },
+        {
+          "value": "Earthquake",
+          "weight": 0.62613
+        },
+        {
+          "value": "Toxic",
+          "weight": 0.50441
+        },
+        {
+          "value": "Swords Dance",
+          "weight": 0.32339
+        },
+        {
+          "value": "Spikes",
+          "weight": 0.31812999999999997
+        },
+        {
+          "value": "Facade",
+          "weight": 0.26447
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.10999
+        }
+      ],
+      "items": [
+        {
+          "value": "Toxic Orb",
+          "weight": 0.99684
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Poison Heal",
+          "weight": 0.9991599999999999
+        },
+        {
+          "value": "Hyper Cutter",
+          "weight": 0.00084
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Careful:244/0/36/0/228/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 244,
+            "def": 36,
+            "spd": 228
+          },
+          "ivs": {},
+          "weight": 0.18445
+        },
+        {
+          "label": "Careful:244/0/0/0/168/96",
+          "nature": "Careful",
+          "evs": {
+            "hp": 244,
+            "spd": 168,
+            "spe": 96
+          },
+          "ivs": {},
+          "weight": 0.13763999999999998
+        },
+        {
+          "label": "Impish:244/0/252/0/12/0",
+          "nature": "Impish",
+          "evs": {
+            "hp": 244,
+            "def": 252,
+            "spd": 12
+          },
+          "ivs": {},
+          "weight": 0.05849
+        },
+        {
+          "label": "Careful:252/0/36/0/220/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 252,
+            "def": 36,
+            "spd": 220
+          },
+          "ivs": {},
+          "weight": 0.0509
+        },
+        {
+          "label": "Careful:244/0/12/0/252/0",
+          "nature": "Careful",
+          "evs": {
+            "hp": 244,
+            "def": 12,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.05022
+        },
+        {
+          "label": "Impish:252/0/184/0/0/72",
+          "nature": "Impish",
+          "evs": {
+            "hp": 252,
+            "def": 184,
+            "spe": 72
+          },
+          "ivs": {},
+          "weight": 0.04563
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Blissey",
+          "weight": 0.27846
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.27574000000000004
+        },
+        {
+          "value": "Dondozo",
+          "weight": 0.23159
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.20918
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.19256
+        },
+        {
+          "value": "Clefable",
+          "weight": 0.18663
+        },
+        {
+          "value": "Clodsire",
+          "weight": 0.16847
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.16011
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.12561999999999998
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.12500999999999998
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Landorus-Therian": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "U-turn",
+          "weight": 0.91716
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.79751
+        },
+        {
+          "value": "Earthquake",
+          "weight": 0.64432
+        },
+        {
+          "value": "Taunt",
+          "weight": 0.54194
+        },
+        {
+          "value": "Earth Power",
+          "weight": 0.3555
+        },
+        {
+          "value": "Stone Edge",
+          "weight": 0.29055
+        },
+        {
+          "value": "Grass Knot",
+          "weight": 0.10175000000000001
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.1002
+        }
+      ],
+      "items": [
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.7132
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.14327
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.03582
+        },
+        {
+          "value": "Light Ball",
+          "weight": 0.027200000000000002
+        },
+        {
+          "value": "Choice Band",
+          "weight": 0.02239
+        },
+        {
+          "value": "Earth Plate",
+          "weight": 0.013819999999999999
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Intimidate",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:252/0/4/0/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.1184
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.08478
+        },
+        {
+          "label": "Jolly:248/0/8/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 248,
+            "def": 8,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06396
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06368
+        },
+        {
+          "label": "Naive:0/252/0/4/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 252,
+            "spa": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05548
+        },
+        {
+          "label": "Jolly:252/0/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03576
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Kingambit",
+          "weight": 0.48854
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.26649
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.25547000000000003
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.23892
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.20411
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.20227
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.20142
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.18637
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.17717
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.15254
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Glimmora": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Earth Power",
+          "weight": 0.92848
+        },
+        {
+          "value": "Mortal Spin",
+          "weight": 0.8776600000000001
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.7084699999999999
+        },
+        {
+          "value": "Power Gem",
+          "weight": 0.43559
+        },
+        {
+          "value": "Meteor Beam",
+          "weight": 0.36883000000000005
+        },
+        {
+          "value": "Sludge Wave",
+          "weight": 0.19973
+        },
+        {
+          "value": "Spikes",
+          "weight": 0.14891
+        },
+        {
+          "value": "Dazzling Gleam",
+          "weight": 0.12634
+        }
+      ],
+      "items": [
+        {
+          "value": "Power Herb",
+          "weight": 0.36832
+        },
+        {
+          "value": "Red Card",
+          "weight": 0.28741
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.24547
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.05925
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Toxic Debris",
+          "weight": 0.9943000000000001
+        },
+        {
+          "value": "Corrosion",
+          "weight": 0.005699999999999999
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.19434
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.18609
+        },
+        {
+          "label": "Timid:4/0/0/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07502
+        },
+        {
+          "label": "Naive:0/4/0/252/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.054029999999999995
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04261
+        },
+        {
+          "label": "Bold:244/0/216/0/0/48",
+          "nature": "Bold",
+          "evs": {
+            "hp": 244,
+            "def": 216,
+            "spe": 48
+          },
+          "ivs": {},
+          "weight": 0.03464
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Kingambit",
+          "weight": 0.37571
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.33096
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.32771
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.29206
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.26404
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.26114
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.25576
+        },
+        {
+          "value": "Deoxys-Speed",
+          "weight": 0.20143999999999998
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.18866
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.17858000000000002
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Darkrai": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Dark Pulse",
+          "weight": 0.9924200000000001
+        },
+        {
+          "value": "Ice Beam",
+          "weight": 0.7379000000000001
+        },
+        {
+          "value": "Sludge Bomb",
+          "weight": 0.55141
+        },
+        {
+          "value": "Focus Blast",
+          "weight": 0.32037
+        },
+        {
+          "value": "Nasty Plot",
+          "weight": 0.31921
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.2903
+        },
+        {
+          "value": "Will-O-Wisp",
+          "weight": 0.19119
+        },
+        {
+          "value": "Trick",
+          "weight": 0.18045999999999998
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.24728999999999998
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.15057
+        },
+        {
+          "value": "Black Glasses",
+          "weight": 0.14112
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.13687
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.11609
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.07367
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Bad Dreams",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.59102
+        },
+        {
+          "label": "Naive:0/4/0/252/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.08257999999999999
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07831
+        },
+        {
+          "label": "Naive:0/100/0/156/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 100,
+            "spa": 156,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04797
+        },
+        {
+          "label": "Timid:4/0/0/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.044660000000000005
+        },
+        {
+          "label": "Hasty:0/4/0/252/0/252",
+          "nature": "Hasty",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.026459999999999997
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.38594
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.35522
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.29546
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.21292999999999998
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.17986999999999997
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.16353
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.15805
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.14366
+        },
+        {
+          "value": "Gliscor",
+          "weight": 0.1411
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.13553
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Iron Moth": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Fiery Dance",
+          "weight": 0.97687
+        },
+        {
+          "value": "Sludge Wave",
+          "weight": 0.8944799999999999
+        },
+        {
+          "value": "Dazzling Gleam",
+          "weight": 0.42302999999999996
+        },
+        {
+          "value": "Substitute",
+          "weight": 0.32902000000000003
+        },
+        {
+          "value": "Energy Ball",
+          "weight": 0.32780000000000004
+        },
+        {
+          "value": "Toxic Spikes",
+          "weight": 0.19386
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.17120000000000002
+        },
+        {
+          "value": "Overheat",
+          "weight": 0.10773999999999999
+        }
+      ],
+      "items": [
+        {
+          "value": "Booster Energy",
+          "weight": 0.8547199999999999
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.07103
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.04258
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Quark Drive",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:0/0/124/132/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 124,
+            "spa": 132,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.43726
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.22493
+        },
+        {
+          "label": "Timid:0/0/120/132/4/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 120,
+            "spa": 132,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06517
+        },
+        {
+          "label": "Timid:120/0/0/132/4/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 120,
+            "spa": 132,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03748
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03574
+        },
+        {
+          "label": "Timid:120/0/4/132/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 120,
+            "def": 4,
+            "spa": 132,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03325
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.38067999999999996
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.36061
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.32264000000000004
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.31654
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.21305
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.19271000000000002
+        },
+        {
+          "value": "Deoxys-Speed",
+          "weight": 0.19069
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.18285
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.16631
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.14729
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Alomomola": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Flip Turn",
+          "weight": 0.9968699999999999
+        },
+        {
+          "value": "Wish",
+          "weight": 0.5723199999999999
+        },
+        {
+          "value": "Protect",
+          "weight": 0.5277000000000001
+        },
+        {
+          "value": "Mirror Coat",
+          "weight": 0.48063
+        },
+        {
+          "value": "Scald",
+          "weight": 0.44109000000000004
+        },
+        {
+          "value": "Play Rough",
+          "weight": 0.25348
+        },
+        {
+          "value": "Body Slam",
+          "weight": 0.22753
+        },
+        {
+          "value": "Tickle",
+          "weight": 0.19524
+        }
+      ],
+      "items": [
+        {
+          "value": "Assault Vest",
+          "weight": 0.42450000000000004
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.26979
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.25047
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.02265
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Regenerator",
+          "weight": 0.99883
+        },
+        {
+          "value": "Healer",
+          "weight": 0.00114
+        },
+        {
+          "value": "Hydration",
+          "weight": 3e-05
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Relaxed:252/0/252/0/4/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 252,
+            "def": 252,
+            "spd": 4
+          },
+          "ivs": {},
+          "weight": 0.16899
+        },
+        {
+          "label": "Sassy:252/0/4/0/252/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 252,
+            "def": 4,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.1338
+        },
+        {
+          "label": "Sassy:20/0/236/0/252/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 20,
+            "def": 236,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.13001
+        },
+        {
+          "label": "Relaxed:252/0/236/0/20/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 252,
+            "def": 236,
+            "spd": 20
+          },
+          "ivs": {},
+          "weight": 0.10262
+        },
+        {
+          "label": "Sassy:248/0/8/0/252/0",
+          "nature": "Sassy",
+          "evs": {
+            "hp": 248,
+            "def": 8,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.061810000000000004
+        },
+        {
+          "label": "Relaxed:4/0/252/0/252/0",
+          "nature": "Relaxed",
+          "evs": {
+            "hp": 4,
+            "def": 252,
+            "spd": 252
+          },
+          "ivs": {},
+          "weight": 0.043550000000000005
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.38781
+        },
+        {
+          "value": "Weezing-Galar",
+          "weight": 0.2563
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.2335
+        },
+        {
+          "value": "Corviknight",
+          "weight": 0.21879
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.18501
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.17718
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.17289000000000002
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.16518999999999998
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.15659
+        },
+        {
+          "value": "Lokix",
+          "weight": 0.14698
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Deoxys-Speed": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Psycho Boost",
+          "weight": 0.65987
+        },
+        {
+          "value": "Taunt",
+          "weight": 0.54476
+        },
+        {
+          "value": "Stealth Rock",
+          "weight": 0.39862000000000003
+        },
+        {
+          "value": "Light Screen",
+          "weight": 0.27101
+        },
+        {
+          "value": "Reflect",
+          "weight": 0.27099
+        },
+        {
+          "value": "Superpower",
+          "weight": 0.25439
+        },
+        {
+          "value": "Spikes",
+          "weight": 0.23841
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.22021999999999997
+        }
+      ],
+      "items": [
+        {
+          "value": "Life Orb",
+          "weight": 0.27092
+        },
+        {
+          "value": "Light Clay",
+          "weight": 0.27042
+        },
+        {
+          "value": "Eject Pack",
+          "weight": 0.11917
+        },
+        {
+          "value": "Focus Sash",
+          "weight": 0.09958
+        },
+        {
+          "value": "Red Card",
+          "weight": 0.05749
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.04867
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Pressure",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:248/0/8/0/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 248,
+            "def": 8,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.18374
+        },
+        {
+          "label": "Naive:0/200/0/252/0/56",
+          "nature": "Naive",
+          "evs": {
+            "atk": 200,
+            "spa": 252,
+            "spe": 56
+          },
+          "ivs": {},
+          "weight": 0.09087999999999999
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06138
+        },
+        {
+          "label": "Timid:248/0/0/0/8/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 248,
+            "spd": 8,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.05229
+        },
+        {
+          "label": "Timid:248/0/4/0/4/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 248,
+            "def": 4,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03501
+        },
+        {
+          "label": "Timid:248/0/0/108/0/152",
+          "nature": "Timid",
+          "evs": {
+            "hp": 248,
+            "spa": 108,
+            "spe": 152
+          },
+          "ivs": {},
+          "weight": 0.03424
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Kingambit",
+          "weight": 0.41092
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.34912999999999994
+        },
+        {
+          "value": "Great Tusk",
+          "weight": 0.33122999999999997
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.32417
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.30167
+        },
+        {
+          "value": "Ceruledge",
+          "weight": 0.24004999999999999
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.22779
+        },
+        {
+          "value": "Glimmora",
+          "weight": 0.22030000000000002
+        },
+        {
+          "value": "Iron Moth",
+          "weight": 0.20145
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.20126000000000002
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Ceruledge": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Bitter Blade",
+          "weight": 0.94084
+        },
+        {
+          "value": "Swords Dance",
+          "weight": 0.91109
+        },
+        {
+          "value": "Shadow Sneak",
+          "weight": 0.81625
+        },
+        {
+          "value": "Poltergeist",
+          "weight": 0.74279
+        },
+        {
+          "value": "Close Combat",
+          "weight": 0.26789
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.07341
+        },
+        {
+          "value": "Bulk Up",
+          "weight": 0.05909
+        }
+      ],
+      "items": [
+        {
+          "value": "Focus Sash",
+          "weight": 0.36115
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.31585
+        },
+        {
+          "value": "Air Balloon",
+          "weight": 0.14194
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.09595000000000001
+        },
+        {
+          "value": "Covert Cloak",
+          "weight": 0.03727
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Weak Armor",
+          "weight": 0.9144199999999999
+        },
+        {
+          "value": "Flash Fire",
+          "weight": 0.08558
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.22982
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.22249
+        },
+        {
+          "label": "Adamant:112/252/32/0/0/112",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 112,
+            "atk": 252,
+            "def": 32,
+            "spe": 112
+          },
+          "ivs": {},
+          "weight": 0.07256
+        },
+        {
+          "label": "Adamant:0/252/0/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06362
+        },
+        {
+          "label": "Adamant:232/252/4/0/0/20",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 232,
+            "atk": 252,
+            "def": 4,
+            "spe": 20
+          },
+          "ivs": {},
+          "weight": 0.05963
+        },
+        {
+          "label": "Jolly:0/252/4/0/0/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.0462
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.41447
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.28158
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.27690000000000003
+        },
+        {
+          "value": "Deoxys-Speed",
+          "weight": 0.24456
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.21989
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.21491
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.20129999999999998
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.19628
+        },
+        {
+          "value": "Dragonite",
+          "weight": 0.17889
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.16939
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Rillaboom": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Grassy Glide",
+          "weight": 0.99523
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.87064
+        },
+        {
+          "value": "Wood Hammer",
+          "weight": 0.63015
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.60378
+        },
+        {
+          "value": "Swords Dance",
+          "weight": 0.36249000000000003
+        },
+        {
+          "value": "High Horsepower",
+          "weight": 0.23373000000000002
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.13702999999999999
+        }
+      ],
+      "items": [
+        {
+          "value": "Choice Band",
+          "weight": 0.37646999999999997
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.26557
+        },
+        {
+          "value": "Terrain Extender",
+          "weight": 0.20721
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.06001
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.02787
+        },
+        {
+          "value": "Miracle Seed",
+          "weight": 0.018260000000000002
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Grassy Surge",
+          "weight": 0.99874
+        },
+        {
+          "value": "Overgrow",
+          "weight": 0.00126
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Adamant:0/252/4/0/0/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "def": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.30106
+        },
+        {
+          "label": "Adamant:0/252/0/0/4/252",
+          "nature": "Adamant",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.1624
+        },
+        {
+          "label": "Adamant:204/252/0/0/0/52",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 204,
+            "atk": 252,
+            "spe": 52
+          },
+          "ivs": {},
+          "weight": 0.06405999999999999
+        },
+        {
+          "label": "Adamant:72/252/0/0/0/184",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 72,
+            "atk": 252,
+            "spe": 184
+          },
+          "ivs": {},
+          "weight": 0.059480000000000005
+        },
+        {
+          "label": "Jolly:0/252/0/0/4/252",
+          "nature": "Jolly",
+          "evs": {
+            "atk": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.04498
+        },
+        {
+          "label": "Adamant:48/252/0/0/28/180",
+          "nature": "Adamant",
+          "evs": {
+            "hp": 48,
+            "atk": 252,
+            "spd": 28,
+            "spe": 180
+          },
+          "ivs": {},
+          "weight": 0.02193
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.4241
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.26525
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.21507
+        },
+        {
+          "value": "Heatran",
+          "weight": 0.17881
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.16747
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.16431
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.16297999999999999
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.15936
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.12225
+        },
+        {
+          "value": "Cinderace",
+          "weight": 0.11689
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Zapdos": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Hurricane",
+          "weight": 0.98356
+        },
+        {
+          "value": "Roost",
+          "weight": 0.8606699999999999
+        },
+        {
+          "value": "Volt Switch",
+          "weight": 0.74074
+        },
+        {
+          "value": "Thunder Wave",
+          "weight": 0.40312
+        },
+        {
+          "value": "Heat Wave",
+          "weight": 0.25772
+        },
+        {
+          "value": "Discharge",
+          "weight": 0.24173999999999998
+        },
+        {
+          "value": "U-turn",
+          "weight": 0.20335
+        },
+        {
+          "value": "Weather Ball",
+          "weight": 0.09833
+        }
+      ],
+      "items": [
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.84384
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.06877
+        },
+        {
+          "value": "Rocky Helmet",
+          "weight": 0.04025
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Static",
+          "weight": 0.9864799999999999
+        },
+        {
+          "value": "Pressure",
+          "weight": 0.01352
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Bold:248/0/252/8/0/0",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spa": 8
+          },
+          "ivs": {},
+          "weight": 0.22987
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.11771000000000001
+        },
+        {
+          "label": "Bold:248/0/252/0/0/8",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spe": 8
+          },
+          "ivs": {},
+          "weight": 0.0832
+        },
+        {
+          "label": "Bold:248/0/244/0/0/16",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 244,
+            "spe": 16
+          },
+          "ivs": {},
+          "weight": 0.06841
+        },
+        {
+          "label": "Bold:248/0/252/0/8/0",
+          "nature": "Bold",
+          "evs": {
+            "hp": 248,
+            "def": 252,
+            "spd": 8
+          },
+          "ivs": {},
+          "weight": 0.05595
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.049240000000000006
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.35712000000000005
+        },
+        {
+          "value": "Iron Treads",
+          "weight": 0.29563
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.28014
+        },
+        {
+          "value": "Samurott-Hisui",
+          "weight": 0.19605
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.19593
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.18242999999999998
+        },
+        {
+          "value": "Iron Valiant",
+          "weight": 0.1689
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.16869
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.1623
+        },
+        {
+          "value": "Dragapult",
+          "weight": 0.15259
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Walking Wake": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Draco Meteor",
+          "weight": 0.89156
+        },
+        {
+          "value": "Hydro Steam",
+          "weight": 0.80413
+        },
+        {
+          "value": "Flamethrower",
+          "weight": 0.54417
+        },
+        {
+          "value": "Flip Turn",
+          "weight": 0.49543
+        },
+        {
+          "value": "Dragon Pulse",
+          "weight": 0.45884
+        },
+        {
+          "value": "Knock Off",
+          "weight": 0.24634
+        },
+        {
+          "value": "Weather Ball",
+          "weight": 0.20193999999999998
+        },
+        {
+          "value": "Surf",
+          "weight": 0.13656000000000001
+        }
+      ],
+      "items": [
+        {
+          "value": "Choice Specs",
+          "weight": 0.48584000000000005
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.15355
+        },
+        {
+          "value": "Wise Glasses",
+          "weight": 0.10901999999999999
+        },
+        {
+          "value": "Choice Scarf",
+          "weight": 0.05502
+        },
+        {
+          "value": "Booster Energy",
+          "weight": 0.04855
+        },
+        {
+          "value": "Assault Vest",
+          "weight": 0.04352
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Protosynthesis",
+          "weight": 1.0
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Timid:12/0/0/244/0/252",
+          "nature": "Timid",
+          "evs": {
+            "hp": 12,
+            "spa": 244,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.28478000000000003
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.12007999999999999
+        },
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.09734
+        },
+        {
+          "label": "Timid:0/0/12/244/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 12,
+            "spa": 244,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.09314
+        },
+        {
+          "label": "Timid:0/0/0/244/12/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 244,
+            "spd": 12,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.07399
+        },
+        {
+          "label": "Modest:0/0/4/252/0/252",
+          "nature": "Modest",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.06182000000000001
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.60641
+        },
+        {
+          "value": "Ninetales",
+          "weight": 0.43136
+        },
+        {
+          "value": "Raging Bolt",
+          "weight": 0.40674
+        },
+        {
+          "value": "Torkoal",
+          "weight": 0.32606
+        },
+        {
+          "value": "Hatterene",
+          "weight": 0.30416
+        },
+        {
+          "value": "Venusaur",
+          "weight": 0.21081
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.18217
+        },
+        {
+          "value": "Ting-Lu",
+          "weight": 0.16963999999999999
+        },
+        {
+          "value": "Iron Moth",
+          "weight": 0.16219
+        },
+        {
+          "value": "Ceruledge",
+          "weight": 0.15311
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    },
+    "Enamorus": {
+      "usage_weight": 1.0,
+      "moves": [
+        {
+          "value": "Moonblast",
+          "weight": 0.9841500000000001
+        },
+        {
+          "value": "Earth Power",
+          "weight": 0.97382
+        },
+        {
+          "value": "Healing Wish",
+          "weight": 0.68889
+        },
+        {
+          "value": "Mystical Fire",
+          "weight": 0.52146
+        },
+        {
+          "value": "Tera Blast",
+          "weight": 0.32771
+        },
+        {
+          "value": "Substitute",
+          "weight": 0.16723
+        },
+        {
+          "value": "Superpower",
+          "weight": 0.14029999999999998
+        }
+      ],
+      "items": [
+        {
+          "value": "Choice Scarf",
+          "weight": 0.5480700000000001
+        },
+        {
+          "value": "Choice Specs",
+          "weight": 0.16327000000000003
+        },
+        {
+          "value": "Leftovers",
+          "weight": 0.09988
+        },
+        {
+          "value": "Heavy-Duty Boots",
+          "weight": 0.0704
+        },
+        {
+          "value": "Life Orb",
+          "weight": 0.06197
+        },
+        {
+          "value": "Metronome",
+          "weight": 0.01893
+        }
+      ],
+      "abilities": [
+        {
+          "value": "Contrary",
+          "weight": 0.8973099999999999
+        },
+        {
+          "value": "Cute Charm",
+          "weight": 0.10269
+        }
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "Modest:0/0/0/252/4/252",
+          "nature": "Modest",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.45244999999999996
+        },
+        {
+          "label": "Timid:0/0/0/252/4/252",
+          "nature": "Timid",
+          "evs": {
+            "spa": 252,
+            "spd": 4,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.26409
+        },
+        {
+          "label": "Modest:0/0/4/252/0/252",
+          "nature": "Modest",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.0741
+        },
+        {
+          "label": "Naive:0/4/0/252/0/252",
+          "nature": "Naive",
+          "evs": {
+            "atk": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.056029999999999996
+        },
+        {
+          "label": "Timid:0/0/4/252/0/252",
+          "nature": "Timid",
+          "evs": {
+            "def": 4,
+            "spa": 252,
+            "spe": 252
+          },
+          "ivs": {},
+          "weight": 0.03635
+        },
+        {
+          "label": "Timid:252/0/40/0/0/216",
+          "nature": "Timid",
+          "evs": {
+            "hp": 252,
+            "def": 40,
+            "spe": 216
+          },
+          "ivs": {},
+          "weight": 0.02084
+        }
+      ],
+      "teammate_weights": [
+        {
+          "value": "Great Tusk",
+          "weight": 0.45464
+        },
+        {
+          "value": "Kingambit",
+          "weight": 0.43854
+        },
+        {
+          "value": "Ogerpon-Wellspring",
+          "weight": 0.22729
+        },
+        {
+          "value": "Iron Treads",
+          "weight": 0.19939
+        },
+        {
+          "value": "Gholdengo",
+          "weight": 0.19915
+        },
+        {
+          "value": "Glimmora",
+          "weight": 0.16624
+        },
+        {
+          "value": "Kyurem",
+          "weight": 0.16588999999999998
+        },
+        {
+          "value": "Slowking-Galar",
+          "weight": 0.1535
+        },
+        {
+          "value": "Zamazenta",
+          "weight": 0.14733000000000002
+        },
+        {
+          "value": "Pecharunt",
+          "weight": 0.13599
+        }
+      ],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Generated from Smogon moveset stats."
+      ]
+    }
+  },
+  "notes": [
+    "Raw payload generated from Smogon moveset stats.",
+    "Tera types intentionally omitted from this ingestion pass.",
+    "Associations/leads/checks-and-counters not yet ingested in this pass."
+  ]
+}

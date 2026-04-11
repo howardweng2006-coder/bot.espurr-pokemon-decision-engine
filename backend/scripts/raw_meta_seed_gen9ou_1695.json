@@ -1,0 +1,112 @@
+{
+  "format_id": "gen9ou",
+  "generation": 9,
+  "rating_bucket": "1695",
+  "month_window": ["rolling-3m-v1"],
+  "species_priors": {
+    "Great Tusk": {
+      "usage_weight": 1.0,
+      "moves": [
+        {"value": "Headlong Rush", "weight": 0.95},
+        {"value": "Earthquake", "weight": 0.82},
+        {"value": "Knock Off", "weight": 0.80},
+        {"value": "Rapid Spin", "weight": 0.78},
+        {"value": "Stealth Rock", "weight": 0.68},
+        {"value": "Close Combat", "weight": 0.52},
+        {"value": "Ice Spinner", "weight": 0.47}
+      ],
+      "items": [
+        {"value": "Leftovers", "weight": 0.42},
+        {"value": "Booster Energy", "weight": 0.33},
+        {"value": "Choice Scarf", "weight": 0.12},
+        {"value": "Heavy-Duty Boots", "weight": 0.08}
+      ],
+      "abilities": [
+        {"value": "Protosynthesis", "weight": 1.0}
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "bulky-utility",
+          "nature": "Impish",
+          "evs": {"hp": 252, "atk": 52, "def": 204},
+          "ivs": {},
+          "weight": 0.42
+        },
+        {
+          "label": "offensive-spinner",
+          "nature": "Jolly",
+          "evs": {"atk": 252, "def": 4, "spe": 252},
+          "ivs": {},
+          "weight": 0.35
+        },
+        {
+          "label": "scarf-attacker",
+          "nature": "Jolly",
+          "evs": {"atk": 252, "def": 4, "spe": 252},
+          "ivs": {},
+          "weight": 0.13
+        }
+      ],
+      "teammate_weights": [],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Raw seed fixture for snapshot builder."
+      ]
+    },
+    "Kingambit": {
+      "usage_weight": 1.0,
+      "moves": [
+        {"value": "Kowtow Cleave", "weight": 0.98},
+        {"value": "Sucker Punch", "weight": 0.96},
+        {"value": "Iron Head", "weight": 0.72},
+        {"value": "Swords Dance", "weight": 0.66},
+        {"value": "Low Kick", "weight": 0.38},
+        {"value": "Tera Blast", "weight": 0.20}
+      ],
+      "items": [
+        {"value": "Black Glasses", "weight": 0.40},
+        {"value": "Leftovers", "weight": 0.26},
+        {"value": "Choice Band", "weight": 0.18},
+        {"value": "Lum Berry", "weight": 0.06}
+      ],
+      "abilities": [
+        {"value": "Supreme Overlord", "weight": 1.0}
+      ],
+      "tera_types": [],
+      "spreads": [
+        {
+          "label": "black-glasses-sd",
+          "nature": "Adamant",
+          "evs": {"hp": 112, "atk": 252, "spe": 144},
+          "ivs": {},
+          "weight": 0.40
+        },
+        {
+          "label": "leftovers-bulky",
+          "nature": "Careful",
+          "evs": {"hp": 252, "atk": 56, "spd": 200},
+          "ivs": {},
+          "weight": 0.28
+        },
+        {
+          "label": "banded-attacker",
+          "nature": "Adamant",
+          "evs": {"hp": 176, "atk": 252, "spe": 80},
+          "ivs": {},
+          "weight": 0.18
+        }
+      ],
+      "teammate_weights": [],
+      "lead_weights": [],
+      "associations": {},
+      "notes": [
+        "Raw seed fixture for snapshot builder."
+      ]
+    }
+  },
+  "notes": [
+    "Raw seed input for build_meta_snapshot.py."
+  ]
+}

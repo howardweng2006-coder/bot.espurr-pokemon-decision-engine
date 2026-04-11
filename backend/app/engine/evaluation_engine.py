@@ -3,9 +3,9 @@ from __future__ import annotations
 import math
 from typing import Dict, List, Tuple
 
-from app.engine.lookahead_engine import estimate_lookahead_bonus
 from app.domain.actions import EvaluatedAction, MoveAction, ScoreBreakdown, SwitchAction
 from app.domain.battle_state import BattleState
+from app.engine.lookahead_engine import estimate_lookahead_bonus
 from app.engine.projection_engine import project_action_against_response
 from app.engine.response_engine import generate_opponent_responses
 from app.engine.switch_engine import score_switch
@@ -15,6 +15,7 @@ from app.explain.explanation_engine import (
     build_reasoning_summary,
     build_recommendation_explanation,
 )
+from app.inference.candidate_builder import CandidateBuilder
 from app.inference.models import (
     ActionWorldEvaluation,
     AggregatedActionValue,
@@ -22,6 +23,7 @@ from app.inference.models import (
     OpponentWorld,
 )
 from app.inference.set_inference import infer_opposing_active_set
+from app.providers.meta_provider import MetaProvider
 
 
 def softmax(values: Dict[str, float], temperature: float = 8.0) -> Dict[str, float]:
@@ -42,14 +44,27 @@ def build_opponent_worlds(
         return []
 
     normalized = inference_result.normalized_weights()
-    revealed = list(state.opponent_side.active.revealed_moves)
-
     worlds: List[OpponentWorld] = []
+
     for candidate in inference_result.candidates:
-        assumed_moves = []
-        for move_name in candidate.moves:
-            if move_name not in assumed_moves:
+        if candidate.is_eliminated:
+            continue
+
+        known_moves: list[str] = []
+        for move_name in candidate.confirmed_moves:
+            if move_name not in known_moves:
+                known_moves.append(move_name)
+
+        assumed_moves: list[str] = []
+        for move_name in candidate.assumed_moves:
+            if move_name not in assumed_moves and move_name not in known_moves:
                 assumed_moves.append(move_name)
+
+        # Defensive fallback in case a candidate was built without split move bookkeeping.
+        if not known_moves and not assumed_moves:
+            for move_name in candidate.moves:
+                if move_name not in assumed_moves:
+                    assumed_moves.append(move_name)
 
         notes = [
             f"Opponent world derived from candidate '{candidate.label}'.",
@@ -61,17 +76,22 @@ def build_opponent_worlds(
             notes.append(f"Assumed ability: {candidate.ability}.")
         if candidate.tera_type:
             notes.append(f"Assumed Tera type: {candidate.tera_type}.")
+        if candidate.spread_label:
+            notes.append(f"Assumed spread: {candidate.spread_label}.")
+        if candidate.penalties:
+            notes.append(f"Candidate carries {len(candidate.penalties)} compatibility penalty note(s).")
 
         worlds.append(
             OpponentWorld(
                 species=candidate.species,
                 candidate=candidate,
                 weight=normalized.get(candidate.label, 0.0),
-                known_moves=revealed,
+                known_moves=known_moves,
                 assumed_moves=assumed_moves,
                 assumed_item=candidate.item,
                 assumed_ability=candidate.ability,
                 assumed_tera_type=candidate.tera_type,
+                assumed_spread_label=candidate.spread_label,
                 notes=notes,
             )
         )
@@ -233,6 +253,7 @@ def evaluate_action_in_world(
         notes=notes,
     )
 
+
 def aggregate_world_evaluations(
     world_evaluations: List[ActionWorldEvaluation],
 ) -> AggregatedActionValue:
@@ -249,7 +270,6 @@ def aggregate_world_evaluations(
     worst = min(world_eval.worst_score for world_eval in world_evaluations)
     best = max(world_eval.best_score for world_eval in world_evaluations)
 
-    # Stability = how tight the band is; smaller spread => higher stability.
     spread = max(0.0, best - worst)
     stability = max(0.0, 1.0 - min(spread / 100.0, 1.0))
 
@@ -268,6 +288,7 @@ def aggregate_world_evaluations(
         stability=stability,
         notes=notes,
     )
+
 
 def build_move_evaluated_action(
     move,
@@ -325,7 +346,12 @@ def evaluate_move_actions(
         )
 
         world_evaluations = [
-            evaluate_action_in_world(state=state, my_action=my_action, world=world, all_worlds=worlds,)
+            evaluate_action_in_world(
+                state=state,
+                my_action=my_action,
+                world=world,
+                all_worlds=worlds,
+            )
             for world in worlds
         ]
         aggregated = aggregate_world_evaluations(world_evaluations)
@@ -342,6 +368,7 @@ def evaluate_move_actions(
 
     return results
 
+
 def evaluate_switch_actions(
     state: BattleState,
     worlds: List[OpponentWorld],
@@ -353,7 +380,12 @@ def evaluate_switch_actions(
         action = SwitchAction(target_species=species)
 
         world_evaluations = [
-            evaluate_action_in_world(state=state, my_action=action, world=world, all_worlds=worlds,)
+            evaluate_action_in_world(
+                state=state,
+                my_action=action,
+                world=world,
+                all_worlds=worlds,
+            )
             for world in worlds
         ]
         aggregated = aggregate_world_evaluations(world_evaluations)
@@ -407,7 +439,14 @@ def evaluate_battle_state(
     evaluated_actions: List[EvaluatedAction] = []
     raw_scores: Dict[str, float] = {}
 
-    inference_result = infer_opposing_active_set(state)
+    meta_provider = MetaProvider()
+    candidate_builder = CandidateBuilder()
+
+    inference_result = infer_opposing_active_set(
+        state,
+        meta_provider=meta_provider,
+        candidate_builder=candidate_builder,
+    )
     assumptions_used = build_assumptions(state, inference=inference_result)
 
     worlds = build_opponent_worlds(state=state, inference_result=inference_result)
@@ -448,6 +487,7 @@ def evaluate_battle_state(
     ranked_actions = [evaluated.to_dict() for evaluated in evaluated_actions]
 
     return best_action, best_conf, ranked_actions, explanation, assumptions_used
+
 
 def top_influential_world(
     world_evaluations: List[ActionWorldEvaluation],

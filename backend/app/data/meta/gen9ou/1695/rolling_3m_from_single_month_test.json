@@ -1,0 +1,14 @@
+{
+  "format_id": "gen9ou",
+  "generation": 9,
+  "rating_bucket": "1695",
+  "month_window": [
+    "single-month-source"
+  ],
+  "species_priors": {},
+  "notes": [
+    "Raw payload generated from Smogon moveset stats.",
+    "Tera types omitted because monthly stats source does not provide them.",
+    "Associations/teammates/leads not yet ingested in this pass."
+  ]
+}

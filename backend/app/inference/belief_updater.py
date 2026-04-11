@@ -5,26 +5,89 @@ from typing import Iterable, Optional
 from app.inference.models import CandidateSet, InferenceResult, OpponentWorld
 
 
+def _copy_candidate(
+    candidate: CandidateSet,
+    *,
+    moves: list[str] | None = None,
+    item: str | None = None,
+    ability: str | None = None,
+    tera_type: str | None = None,
+    evidence_weight: float | None = None,
+    final_weight: float | None = None,
+    notes_append: list[str] | None = None,
+    penalties_append: list[str] | None = None,
+    elimination_reasons_append: list[str] | None = None,
+) -> CandidateSet:
+    next_moves = list(candidate.moves if moves is None else moves)
+    confirmed_moves = [move for move in candidate.confirmed_moves if move in next_moves]
+    assumed_moves = [move for move in next_moves if move not in confirmed_moves]
+
+    next_notes = list(candidate.notes)
+    if notes_append:
+        next_notes.extend(notes_append)
+
+    next_penalties = list(candidate.penalties)
+    if penalties_append:
+        next_penalties.extend(penalties_append)
+
+    next_elimination_reasons = list(candidate.elimination_reasons)
+    if elimination_reasons_append:
+        next_elimination_reasons.extend(elimination_reasons_append)
+
+    next_evidence_weight = candidate.evidence_weight if evidence_weight is None else evidence_weight
+    next_final_weight = candidate.final_weight if final_weight is None else final_weight
+
+    return CandidateSet(
+        species=candidate.species,
+        label=candidate.label,
+        moves=next_moves,
+        item=candidate.item if item is None else item,
+        ability=candidate.ability if ability is None else ability,
+        tera_type=candidate.tera_type if tera_type is None else tera_type,
+        spread_label=candidate.spread_label,
+        nature=candidate.nature,
+        evs=dict(candidate.evs),
+        ivs=dict(candidate.ivs),
+        prior_weight=candidate.prior_weight,
+        compatibility_weight=candidate.compatibility_weight,
+        evidence_weight=next_evidence_weight,
+        final_weight=next_final_weight,
+        source=candidate.source,
+        confirmed_moves=confirmed_moves,
+        assumed_moves=assumed_moves,
+        notes=next_notes,
+        penalties=next_penalties,
+        elimination_reasons=next_elimination_reasons,
+    )
+
+
 def renormalize_candidates(candidates: Iterable[CandidateSet]) -> list[CandidateSet]:
     candidates = list(candidates)
-    total = sum(max(0.0, candidate.weight) for candidate in candidates) or 1.0
+    viable = [candidate for candidate in candidates if not candidate.is_eliminated]
+    total = sum(max(0.0, candidate.final_weight) for candidate in viable) or 1.0
 
-    renormalized: list[CandidateSet] = []
+    normalized: list[CandidateSet] = []
     for candidate in candidates:
-        renormalized.append(
-            CandidateSet(
-                species=candidate.species,
-                label=candidate.label,
-                moves=list(candidate.moves),
-                item=candidate.item,
-                ability=candidate.ability,
-                tera_type=candidate.tera_type,
-                weight=max(0.0, candidate.weight) / total,
-                source=candidate.source,
+        if candidate.is_eliminated:
+            normalized_weight = 0.0
+        else:
+            normalized_weight = max(0.0, candidate.final_weight) / total
+
+        normalized.append(
+            _copy_candidate(
+                candidate,
+                final_weight=normalized_weight,
             )
         )
 
-    return renormalized
+    return normalized
+
+
+def _recompute_final_weight(candidate: CandidateSet, evidence_multiplier: float) -> float:
+    if candidate.is_eliminated:
+        return 0.0
+    next_evidence_weight = candidate.evidence_weight * evidence_multiplier
+    return candidate.prior_weight * candidate.compatibility_weight * next_evidence_weight
 
 
 def apply_revealed_move(
@@ -39,27 +102,28 @@ def apply_revealed_move(
         if not already_present:
             updated_moves.append(revealed_move)
 
-        weight_mult = 1.35 if already_present else 0.90
+        updated_confirmed = list(candidate.confirmed_moves)
+        if revealed_move not in updated_confirmed:
+            updated_confirmed.append(revealed_move)
 
-        updated_candidates.append(
-            CandidateSet(
-                species=candidate.species,
-                label=candidate.label,
-                moves=updated_moves,
-                item=candidate.item,
-                ability=candidate.ability,
-                tera_type=candidate.tera_type,
-                weight=candidate.weight * weight_mult,
-                source=candidate.source,
-            )
+        evidence_multiplier = 1.35 if already_present else 0.90
+        final_weight = _recompute_final_weight(candidate, evidence_multiplier)
+
+        updated = _copy_candidate(
+            candidate,
+            moves=updated_moves,
+            evidence_weight=candidate.evidence_weight * evidence_multiplier,
+            final_weight=final_weight,
+            notes_append=[f"Revealed move evidence applied: {revealed_move}."],
         )
+        updated.confirmed_moves = updated_confirmed
+        updated.assumed_moves = [move for move in updated.moves if move not in updated.confirmed_moves]
+        updated_candidates.append(updated)
 
     updated_candidates = renormalize_candidates(updated_candidates)
 
     updated_notes = list(inference.notes)
-    updated_notes.append(
-        f"Belief updater recorded revealed move evidence: {revealed_move}."
-    )
+    updated_notes.append(f"Belief updater recorded revealed move evidence: {revealed_move}.")
 
     return InferenceResult(
         species=inference.species,
@@ -80,31 +144,35 @@ def apply_item_evidence(
         candidate_item = (candidate.item or "").strip().lower()
 
         if candidate_item == normalized_item:
-            weight_mult = 1.60
+            evidence_multiplier = 1.60
+            next_item = candidate.item
+            penalties: list[str] = []
         elif candidate_item:
-            weight_mult = 0.35
+            evidence_multiplier = 0.35
+            next_item = candidate.item
+            penalties = [f"Observed item {item_name} conflicts with assumed item {candidate.item}."]
         else:
-            weight_mult = 0.80
+            evidence_multiplier = 0.80
+            next_item = item_name
+            penalties = [f"Observed item {item_name} filled previously unknown item slot."]
+
+        final_weight = _recompute_final_weight(candidate, evidence_multiplier)
 
         updated_candidates.append(
-            CandidateSet(
-                species=candidate.species,
-                label=candidate.label,
-                moves=list(candidate.moves),
-                item=candidate.item or item_name,
-                ability=candidate.ability,
-                tera_type=candidate.tera_type,
-                weight=candidate.weight * weight_mult,
-                source=candidate.source,
+            _copy_candidate(
+                candidate,
+                item=next_item,
+                evidence_weight=candidate.evidence_weight * evidence_multiplier,
+                final_weight=final_weight,
+                notes_append=[f"Item evidence applied: {item_name}."],
+                penalties_append=penalties,
             )
         )
 
     updated_candidates = renormalize_candidates(updated_candidates)
 
     updated_notes = list(inference.notes)
-    updated_notes.append(
-        f"Belief updater recorded item evidence: {item_name}."
-    )
+    updated_notes.append(f"Belief updater recorded item evidence: {item_name}.")
 
     return InferenceResult(
         species=inference.species,
@@ -125,31 +193,35 @@ def apply_ability_evidence(
         candidate_ability = (candidate.ability or "").strip().lower()
 
         if candidate_ability == normalized_ability:
-            weight_mult = 1.60
+            evidence_multiplier = 1.60
+            next_ability = candidate.ability
+            penalties: list[str] = []
         elif candidate_ability:
-            weight_mult = 0.35
+            evidence_multiplier = 0.35
+            next_ability = candidate.ability
+            penalties = [f"Observed ability {ability_name} conflicts with assumed ability {candidate.ability}."]
         else:
-            weight_mult = 0.80
+            evidence_multiplier = 0.80
+            next_ability = ability_name
+            penalties = [f"Observed ability {ability_name} filled previously unknown ability slot."]
+
+        final_weight = _recompute_final_weight(candidate, evidence_multiplier)
 
         updated_candidates.append(
-            CandidateSet(
-                species=candidate.species,
-                label=candidate.label,
-                moves=list(candidate.moves),
-                item=candidate.item,
-                ability=candidate.ability or ability_name,
-                tera_type=candidate.tera_type,
-                weight=candidate.weight * weight_mult,
-                source=candidate.source,
+            _copy_candidate(
+                candidate,
+                ability=next_ability,
+                evidence_weight=candidate.evidence_weight * evidence_multiplier,
+                final_weight=final_weight,
+                notes_append=[f"Ability evidence applied: {ability_name}."],
+                penalties_append=penalties,
             )
         )
 
     updated_candidates = renormalize_candidates(updated_candidates)
 
     updated_notes = list(inference.notes)
-    updated_notes.append(
-        f"Belief updater recorded ability evidence: {ability_name}."
-    )
+    updated_notes.append(f"Belief updater recorded ability evidence: {ability_name}.")
 
     return InferenceResult(
         species=inference.species,
@@ -197,16 +269,37 @@ def worlds_to_inference(worlds: list[OpponentWorld]) -> InferenceResult:
 
     candidates: list[CandidateSet] = []
     for world in worlds:
+        base = world.candidate
+        assumed_item = world.assumed_item if world.assumed_item is not None else base.item
+        assumed_ability = world.assumed_ability if world.assumed_ability is not None else base.ability
+        assumed_tera_type = world.assumed_tera_type if world.assumed_tera_type is not None else base.tera_type
+        assumed_moves = list(world.assumed_moves) if world.assumed_moves else list(base.moves)
+
+        confirmed_moves = list(base.confirmed_moves)
+        assumed_only = [move for move in assumed_moves if move not in confirmed_moves]
+
         candidates.append(
             CandidateSet(
-                species=world.species,
-                label=world.candidate.label,
-                moves=list(world.assumed_moves),
-                item=world.assumed_item if world.assumed_item is not None else world.candidate.item,
-                ability=world.assumed_ability if world.assumed_ability is not None else world.candidate.ability,
-                tera_type=world.assumed_tera_type if world.assumed_tera_type is not None else world.candidate.tera_type,
-                weight=world.weight,
-                source=world.candidate.source,
+                species=base.species,
+                label=base.label,
+                moves=assumed_moves,
+                item=assumed_item,
+                ability=assumed_ability,
+                tera_type=assumed_tera_type,
+                spread_label=base.spread_label,
+                nature=base.nature,
+                evs=dict(base.evs),
+                ivs=dict(base.ivs),
+                prior_weight=base.prior_weight,
+                compatibility_weight=base.compatibility_weight,
+                evidence_weight=base.evidence_weight,
+                final_weight=world.weight,
+                source=base.source,
+                confirmed_moves=confirmed_moves,
+                assumed_moves=assumed_only,
+                notes=list(base.notes),
+                penalties=list(base.penalties),
+                elimination_reasons=list(base.elimination_reasons),
             )
         )
 
@@ -236,6 +329,9 @@ def inference_to_worlds(
     updated_worlds: list[OpponentWorld] = []
 
     for candidate in inference.candidates:
+        if candidate.is_eliminated:
+            continue
+
         template = template_by_label.get(candidate.label)
         if template is None:
             continue
@@ -250,6 +346,7 @@ def inference_to_worlds(
                 assumed_item=candidate.item,
                 assumed_ability=candidate.ability,
                 assumed_tera_type=candidate.tera_type,
+                assumed_spread_label=candidate.spread_label,
                 notes=list(template.notes) + list(inference.notes[-3:]),
             )
         )
